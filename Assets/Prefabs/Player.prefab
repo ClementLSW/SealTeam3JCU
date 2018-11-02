@@ -37,8 +37,8 @@ GameObject:
   - component: {fileID: 212537409398194744}
   - component: {fileID: 50863966140389904}
   - component: {fileID: 114784841881593104}
-  - component: {fileID: 61157312079558998}
   - component: {fileID: 58550286074754314}
+  - component: {fileID: 61157312079558998}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -144,14 +144,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e8a4a0f72c6e74da2f54ef4bcdfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpd: 10
+  moveSpd: 5
   jumpForce: 10
   groundRaycastLen: 0.7
-  knockbackMultiplyer: 0.5
-  knockbackIncrement: 5
+  currWeapon: 0
+  knockbackMultiplyer: 2
+  knockbackIncrement: 1
+  baseKnockback: 2
   currKnockbackForce: 0
   meleeColl: {fileID: 58550286074754314}
   meleeCD: 0.2
+  enemyPlayer: {fileID: 0}
   firingPt: {fileID: 4788622980094374}
   bulletPrefab: {fileID: 1782866162845518, guid: 056818dd8d62a96458055a6a1ccf63bd,
     type: 2}

@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [Header("Knockback")]
     [SerializeField] private float knockbackMultiplyer = 1;
     [SerializeField] private float knockbackIncrement = 5;
+    [SerializeField] private float baseKnockback = 10;
     public float currKnockbackForce = 0;
 
     [Header("Melee Properties")]
@@ -52,8 +53,12 @@ public class Player : MonoBehaviour
             return;
 
         meleeNextCD.SetTimer(meleeCD);
-        Vector2 moveDir = GetComponent<Rigidbody2D>().velocity;
-        moveDir.Normalize();
+        Vector2 moveDir;
+
+        if (currFaceDir == FaceDir.LEFT)
+            moveDir = Vector2.left;
+        else
+            moveDir = Vector2.right;
 
         enemyPlayer.TakeDamage(moveDir);
     }
@@ -152,7 +157,7 @@ public class Player : MonoBehaviour
         pushbackDir.y = 1;
         pushbackDir.Normalize();
 
-        rb2D.AddForce(pushbackDir * currKnockbackForce * knockbackMultiplyer, ForceMode2D.Impulse);
+        rb2D.AddForce(pushbackDir * currKnockbackForce * knockbackMultiplyer * baseKnockback, ForceMode2D.Impulse);
         controlsUnlockTime.SetTimer(controlsLockDuration);
     }
 
@@ -180,5 +185,10 @@ public class Player : MonoBehaviour
         {
             enemyPlayer = null;
         }
+    }
+
+    public void ResetCurrentKnockback()
+    {
+        currKnockbackForce = 0;
     }
 }

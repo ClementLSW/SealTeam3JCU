@@ -17,11 +17,16 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI player1KnockbackTxt;
     [SerializeField] private TextMeshProUGUI player2KnockbackTxt;
+    [SerializeField] private TextMeshProUGUI player1LivesTxt;
+    [SerializeField] private TextMeshProUGUI player2LivesTxt;
 
     [SerializeField] private List<ControlMap> controlMaps = new List<ControlMap>();
 
     private Player player1;
     private Player player2;
+
+    [SerializeField] private int player1Lives = 5;
+    [SerializeField] private int player2Lives = 5;
 
     private void Start()
     {
@@ -35,8 +40,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        player1KnockbackTxt.text = player1.currKnockbackForce.ToString();
-        player2KnockbackTxt.text = player2.currKnockbackForce.ToString();
+        player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
+        player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
+
+        player1LivesTxt.text = "Lives:" + player1Lives.ToString();
+        player2LivesTxt.text = "Lives:" + player2Lives.ToString();
     }
 
     private void SpawnPlayers()
@@ -57,7 +65,13 @@ public class GameManager : MonoBehaviour
 
     public void RegisterBorderCollision(Player sourcePlayer)
     {
+        sourcePlayer.ResetCurrentKnockback();
         StartCoroutine(SendPlayerToSpawn(sourcePlayer));
+
+        if (sourcePlayer == player1)
+            player1Lives -= 1;
+        else
+            player2Lives -= 1;
     }
 
     private IEnumerator SendPlayerToSpawn(Player sourcePlayer)
