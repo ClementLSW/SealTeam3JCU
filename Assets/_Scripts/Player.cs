@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpd = 10f;
     [SerializeField] private float gunCD = 0.5f;
+    [SerializeField] private float gunPowerupDuration = 10f;
     private Timer gunNextCD = new Timer();
 
     [Header("Hom Rocket Properties")]
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float rocketSpd = 10f;
     [SerializeField] private float rocketCD = 2f;
     [SerializeField] private float rocketSteerSpd = 10f;
+    [SerializeField] private float rocketPowerupDuration = 10f;
     private Timer rocketNextCD = new Timer();
 
     private Timer controlsUnlockTime = new Timer();
@@ -123,7 +125,7 @@ public class Player : MonoBehaviour
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
 
-        rocket.GetComponent<HormingRocket>().SetupProjectile(gunPower);
+        rocket.GetComponent<HormingRocket>().SetupProjectile(rocketPower);
         rocket.GetComponent<HormingRocket>().SetupHormingRocket(
             GameManager.instance.GetEnemy(this).gameObject.transform,
             rocketSpd,
@@ -206,6 +208,44 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.RegisterBorderCollision(this);
         }
+
+        if(collision.gameObject.tag == "Powerup")
+        {
+            Powerup powerup = collision.GetComponent<Powerup>();
+            switch (powerup.powerupType)
+            {
+                case Powerup.PowerupType.GLOBAL:
+                    StartCoroutine(SwitchWeaponTemp());
+                    break;
+                case Powerup.PowerupType.PERSONAL:
+                    StartCoroutine(SwitchWeaponTemp());
+                    break;
+                case Powerup.PowerupType.TELEPORT:
+                    StartCoroutine(SwitchWeaponTemp());
+                    break;
+                default:
+                    break;
+            }
+            powerup.Pickuped();
+        }
+    }
+
+    private IEnumerator SwitchWeaponTemp()
+    {
+        int weaponType = Random.Range(0, 1);
+        float weaponDuration = 0;
+        if (weaponType == 0)
+        {
+            currWeapon = WeaponType.GUN;
+            weaponDuration = gunPowerupDuration;
+        }
+        else if (weaponType == 1)
+        {
+            currWeapon = WeaponType.ROCKET;
+            weaponDuration = rocketPowerupDuration;
+        }
+        yield return new WaitForSeconds(weaponDuration);
+        currWeapon = WeaponType.MELEE;
     }
 
     public void ResetCurrentKnockback()

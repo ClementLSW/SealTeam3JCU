@@ -150,7 +150,7 @@ MonoBehaviour:
   moveSpd: 5
   jumpForce: 10
   groundRaycastLen: 0.7
-  currWeapon: 2
+  currWeapon: 0
   knockbackMultiplyer: 1
   knockbackIncrement: 1
   baseKnockback: 5
@@ -159,11 +159,12 @@ MonoBehaviour:
   meleeRange: 2
   meleeCD: 0.2
   gunFiringPt: {fileID: 4091654936323630}
-  gunPower: 0.1
+  gunPower: 0.3
   bulletPrefab: {fileID: 1782866162845518, guid: 056818dd8d62a96458055a6a1ccf63bd,
     type: 2}
   bulletSpd: 10
   gunCD: 0.5
+  gunPowerupDuration: 10
   rocketFiringPt: {fileID: 4788622980094374}
   rocketPower: 1.5
   rocketPrefab: {fileID: 1351857094960980, guid: 91f0a9354adb4e04884ed0dd905669a8,
@@ -171,6 +172,7 @@ MonoBehaviour:
   rocketSpd: 10
   rocketCD: 2
   rocketSteerSpd: 300
+  rocketPowerupDuration: 10
 --- !u!212 &212537409398194744
 SpriteRenderer:
   m_ObjectHideFlags: 1
