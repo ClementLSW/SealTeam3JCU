@@ -36,8 +36,11 @@ public class CameraController : MonoBehaviour
             TrackPlayers();
     }
 
-    public void SetPlayersToTrack(List<GameObject> players)
+    public void SetPlayersToTrack(GameObject player1, GameObject player2)
     {
+        List<GameObject> players = new List<GameObject>();
+        players.Add(player1);
+        players.Add(player2);
         playersToTrack = players;
     }
 

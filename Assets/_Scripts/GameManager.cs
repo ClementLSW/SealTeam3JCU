@@ -1,24 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     [Header("Spawn Points")]
-    [SerializeField] private Transform p1Spawn;
-    [SerializeField] private Transform p2Spawn;
+    [SerializeField] private Transform area1_p1_spawn;
+    [SerializeField] private Transform area1_p2_spawn;
 
     [Header("Player Prefabs")]
-    [SerializeField] private GameObject playerGunSlinger_Prefab;
-    [SerializeField] private GameObject playerMinotaur_Prefab;
+    [SerializeField] private GameObject playerPrefab;
 
-    private enum CharTypes { GUNSLINGER, MINOTAUR };
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI player1KnockbackTxt;
+    [SerializeField] private TextMeshProUGUI player2KnockbackTxt;
 
     [SerializeField] private List<ControlMap> controlMaps = new List<ControlMap>();
 
-    private List<GameObject> spawnedPlayers = new List<GameObject>();
+    private Player player1;
+    private Player player2;
 
     private void Start()
     {
@@ -27,42 +30,44 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        SpawnPlayers(CharTypes.GUNSLINGER, CharTypes.GUNSLINGER);
+        SpawnPlayers();
     }
 
-    private GameObject GetPlayerPrefab(CharTypes charType)
+    private void Update()
     {
-        switch (charType)
-        {
-            case CharTypes.GUNSLINGER:
-                return playerGunSlinger_Prefab;
-            case CharTypes.MINOTAUR:
-                return playerMinotaur_Prefab;
-            default:
-                return null;
-        }
+        player1KnockbackTxt.text = player1.currKnockbackForce.ToString();
+        player2KnockbackTxt.text = player2.currKnockbackForce.ToString();
     }
 
-    private void SpawnPlayers(CharTypes p1, CharTypes p2)
+    private void SpawnPlayers()
     {
-        if(p1Spawn)
-        {
-            GameObject player = Instantiate(GetPlayerPrefab(p1), p1Spawn.position, p1Spawn.rotation);
-            player.GetComponent<Player>().ConfigurePlayer(controlMaps[0]);
-            player.name = "Player1";
-            spawnedPlayers.Add(player);
-        }
+        // Spawn player1
+        player1 = Instantiate(playerPrefab, area1_p1_spawn.position, area1_p1_spawn.rotation).GetComponent<Player>();
+        player1.ConfigurePlayer(controlMaps[0]);
+        player1.name = "Player1";
 
-        if (p2Spawn)
-        {
-            GameObject player = Instantiate(GetPlayerPrefab(p2), p2Spawn.position, p2Spawn.rotation);
-            player.GetComponent<Player>().ConfigurePlayer(controlMaps[1]);
-            player.GetComponent<Player>().SetFaceDir(Player.FaceDir.LEFT);
-            player.name = "Player2";
-            spawnedPlayers.Add(player);
-        }
+         // Spawn player2
+        player2 = Instantiate(playerPrefab, area1_p2_spawn.position, area1_p2_spawn.rotation).GetComponent<Player>();
+        player2.ConfigurePlayer(controlMaps[1]);
+        player2.GetComponent<Player>().SetFaceDir(Player.FaceDir.LEFT);
+        player2.name = "Player2";
 
-        CameraController.instance.SetPlayersToTrack(spawnedPlayers);
+        CameraController.instance.SetPlayersToTrack(player1.gameObject, player2.gameObject);
+    }
+
+    public void RegisterBorderCollision(Player sourcePlayer)
+    {
+        StartCoroutine(SendPlayerToSpawn(sourcePlayer));
+    }
+
+    private IEnumerator SendPlayerToSpawn(Player sourcePlayer)
+    {
+        Debug.Log("HEY");
+        sourcePlayer.gameObject.SetActive(false);
+        yield return new WaitForSeconds(3);
+        sourcePlayer.gameObject.transform.position = area1_p1_spawn.position;
+        sourcePlayer.gameObject.SetActive(true);
+        yield return null;
     }
 }
 

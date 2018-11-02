@@ -5,22 +5,22 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Collider2D coll;
-
-    [SerializeField] private float dmgAmt = 0f;
-    [SerializeField] private float pushForce = 1f;
-    [SerializeField] private Vector3 pushBias;
+    
+    [SerializeField] private float pushForce = 0.2f;
 
     private void Start()
     {
         coll = GetComponent<Collider2D>();
+        Destroy(gameObject, 10);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            // TODO: Add proper push dir
-            collision.gameObject.GetComponent<Player>().TakeDamage(dmgAmt, pushBias * pushForce, 0.5f);
+            Vector2 moveDir = GetComponent<Rigidbody2D>().velocity;
+            moveDir.Normalize();
+            collision.gameObject.GetComponent<Player>().TakeDamage(moveDir);
         }
 
         Destroy(gameObject);

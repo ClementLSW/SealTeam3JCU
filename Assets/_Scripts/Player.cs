@@ -11,9 +11,30 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpd = 10f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float groundRaycastLen = 0.7f;
+    private enum WeaponType { MELEE, GUN };
+    [SerializeField] private WeaponType currWeapon = WeaponType.MELEE;
 
-    private float dmgRecieved = 0f;
-    private float controlsUnlockTime;
+    [Header("Knockback")]
+    [SerializeField] private float knockbackMultiplyer = 1;
+    [SerializeField] private float knockbackIncrement = 5;
+    public float currKnockbackForce = 0;
+
+    [Header("Melee Properties")]
+    [SerializeField] private CircleCollider2D meleeColl;
+    [SerializeField] private float meleeCD = 0.2f;
+    private Timer meleeNextCD = new Timer();
+    [SerializeField] private Player enemyPlayer;
+
+    [Header("Gun Properties")]
+    [SerializeField] private Transform firingPt;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float bulletSpd = 10f;
+    [SerializeField] private float gunCD = 0.5f;
+    private Timer gunNextCD = new Timer();
+
+    private Timer controlsUnlockTime = new Timer();
+    private float controlsLockDuration = 1f;
+
     public enum FaceDir {NULL, LEFT, RIGHT };
     protected FaceDir currFaceDir = FaceDir.RIGHT;
 
@@ -22,10 +43,53 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
     }
 
-    protected void Update()
+    private void MeleeAtt()
+    {
+        if (!enemyPlayer)
+            return;
+
+        if (!gunNextCD.TimeIsUp)
+            return;
+
+        meleeNextCD.SetTimer(meleeCD);
+        Vector2 moveDir = GetComponent<Rigidbody2D>().velocity;
+        moveDir.Normalize();
+
+        enemyPlayer.TakeDamage(moveDir);
+    }
+
+    private void GunShoot()
+    {
+        if (!gunNextCD.TimeIsUp)
+            return;
+
+        gunNextCD.SetTimer(gunCD);
+        GameObject bullet = Instantiate(bulletPrefab, firingPt.position, firingPt.rotation);
+
+        Vector2 dir = Vector2.right;
+        if (currFaceDir == FaceDir.LEFT)
+            dir = -dir;
+
+        bullet.GetComponent<Rigidbody2D>().AddForce(dir * bulletSpd, ForceMode2D.Impulse);
+    }
+
+    private void Update()
     {
         MovePlayer();
         UpdatePlayerFaceDir();
+
+        if (Input.GetKeyDown(controlMap.basicAtt))
+        {
+            switch (currWeapon)
+            {
+                case WeaponType.MELEE:
+                    MeleeAtt();
+                    break;
+                case WeaponType.GUN:
+                    GunShoot();
+                    break;
+            }
+        }
     }
 
     private void UpdatePlayerFaceDir(FaceDir forcedFaceDir = FaceDir.NULL)
@@ -46,7 +110,7 @@ public class Player : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (ControlsLocked())
+        if (!controlsUnlockTime.TimeIsUp)
             return;
 
         if (Input.GetKey(controlMap.left))
@@ -72,16 +136,7 @@ public class Player : MonoBehaviour
     protected bool IsOnGround()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLen, 1 << LayerMask.NameToLayer("Ground"));
-
-        if (hit.collider != null)
-            return true;
-        else
-            return false;
-    }
-
-    private bool ControlsLocked()
-    {
-        return controlsUnlockTime > Time.time;
+        return hit.collider;
     }
 
     public void ConfigurePlayer(ControlMap controlMap)
@@ -89,16 +144,41 @@ public class Player : MonoBehaviour
         this.controlMap = controlMap;
     }
 
-    public void TakeDamage(float dmgAmt, Vector2 pushForce, float stunDuration)
+    public void TakeDamage(Vector2 pushbackDir)
     {
-        dmgRecieved += dmgAmt;
+        currKnockbackForce += knockbackIncrement;
         rb2D.velocity = Vector2.zero;
-        rb2D.AddForce(pushForce, ForceMode2D.Impulse);
-        controlsUnlockTime = Time.time + stunDuration;
+
+        pushbackDir.y = 1;
+        pushbackDir.Normalize();
+
+        rb2D.AddForce(pushbackDir * currKnockbackForce * knockbackMultiplyer, ForceMode2D.Impulse);
+        controlsUnlockTime.SetTimer(controlsLockDuration);
     }
 
     public void SetFaceDir(FaceDir dir)
     {
         UpdatePlayerFaceDir(dir);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Border"))
+        {
+            GameManager.instance.RegisterBorderCollision(this);
+        }
+
+        if (collision.gameObject.GetComponent<Player>() && collision.gameObject != gameObject)
+        {
+            enemyPlayer = collision.GetComponent<Player>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Player>() && collision.gameObject != gameObject)
+        {
+            enemyPlayer = null;
+        }
     }
 }
