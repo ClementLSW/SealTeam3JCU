@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8633865683171744720}
   - component: {fileID: 114939789354169962}
   - component: {fileID: 68973576065124216}
+  - component: {fileID: 114191208637360628}
   m_Layer: 0
   m_Name: EiffelTowerPlatformPrefab
   m_TagString: Untagged
@@ -57,11 +58,25 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 2.115, y: 2.115}
-  - {x: -2.115, y: 2.115}
-  - {x: -2.115, y: 1.885}
-  - {x: 2.115, y: 1.885}
-  - {x: 2.115, y: 2.115}
+  - {x: 2.13, y: 2.13}
+  - {x: -2.13, y: 2.13}
+  - {x: -2.13, y: 1.87}
+  - {x: 2.13, y: 1.87}
+  - {x: 2.13, y: 2.13}
+--- !u!114 &114191208637360628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1562257515058162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0ac1e572418a043bbb21ce604fbc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 4
+  explode: {fileID: 19800002, guid: 3364c97de68d3a147af572d1c71c6455, type: 2}
+  damagedSprite: {fileID: 11400000, guid: ac206a78ed7b94245a9c2aabf2ed8d78, type: 2}
 --- !u!114 &114939789354169962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +114,7 @@ MonoBehaviour:
   m_AdaptiveUV: 1
   m_UpdateCollider: 1
   m_ColliderDetail: 4
-  m_ColliderOffset: 0.115
+  m_ColliderOffset: 0.13
   m_ColliderCornerType: 0
 --- !u!1971053207 &8633865683171744720
 SpriteShapeRenderer:
@@ -110,7 +125,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -150,5 +165,5 @@ SpriteShapeRenderer:
   - {fileID: 0}
   - {fileID: 0}
   m_LocalAABB:
-    m_Center: {x: -0.00999999, y: 2, z: 0}
-    m_Extent: {x: 2.14, y: 0.14923906, z: 0}
+    m_Center: {x: 0, y: 2, z: 0}
+    m_Extent: {x: 2.05, y: 0.13000017, z: 0}

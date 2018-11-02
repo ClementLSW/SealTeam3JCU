@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 4
-  explode: {fileID: 0}
-  damagedSprite: {fileID: 0}
+  explode: {fileID: 19800002, guid: 3364c97de68d3a147af572d1c71c6455, type: 2}
+  damagedSprite: {fileID: 11400000, guid: 44dee531f4dda9a47b5b8aaacf9b43e3, type: 2}
 --- !u!1971053207 &8633865680563437090
 SpriteShapeRenderer:
   m_ObjectHideFlags: 1
@@ -165,5 +165,5 @@ SpriteShapeRenderer:
   - {fileID: 0}
   - {fileID: 0}
   m_LocalAABB:
-    m_Center: {x: -0.004999995, y: 2, z: 0}
-    m_Extent: {x: 2.065, y: 0.154239, z: 0}
+    m_Center: {x: 0, y: 2, z: 0}
+    m_Extent: {x: 2, y: 0.13500023, z: 0}
