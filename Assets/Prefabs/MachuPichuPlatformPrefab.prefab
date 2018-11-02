@@ -9,46 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1862913413795640}
+  m_RootGameObject: {fileID: 1659516443909480}
   m_IsPrefabAsset: 1
---- !u!1 &1862913413795640
+--- !u!1 &1659516443909480
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4992022490726440}
-  - component: {fileID: 8633865680563437090}
-  - component: {fileID: 114695103134183214}
-  - component: {fileID: 68536335701007322}
-  - component: {fileID: 114785459073414540}
+  - component: {fileID: 4331910750889826}
+  - component: {fileID: 8633865682355763814}
+  - component: {fileID: 114909990271541990}
+  - component: {fileID: 68766185162815438}
   m_Layer: 0
-  m_Name: TajMahalPlatformPrefab
+  m_Name: MachuPichuPlatformPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4992022490726440
+--- !u!4 &4331910750889826
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1862913413795640}
+  m_GameObject: {fileID: 1659516443909480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00414221, y: 0.44455147, z: 0}
+  m_LocalPosition: {x: 0, y: -0.331, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &68536335701007322
+--- !u!68 &68766185162815438
 EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1862913413795640}
+  m_GameObject: {fileID: 1659516443909480}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -58,17 +57,17 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 1.9977874, y: 2.135185}
-  - {x: -2.0012012, y: 2.135699}
-  - {x: -2.0012012, y: 1.8620212}
-  - {x: 2.0016758, y: 1.864815}
-  - {x: 2.0016758, y: 2.1325924}
---- !u!114 &114695103134183214
+  - {x: 1.99581, y: 2.133947}
+  - {x: -2.0037036, y: 2.1378937}
+  - {x: -2.0076504, y: 1.8621066}
+  - {x: 1.9997568, y: 1.8660533}
+  - {x: 2.0037038, y: 2.133947}
+--- !u!114 &114909990271541990
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1862913413795640}
+  m_GameObject: {fileID: 1659516443909480}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90539df1cd5704abcb25fec9f3f5f84b, type: 3}
@@ -95,37 +94,23 @@ MonoBehaviour:
       bevelSize: 0
       spriteIndex: 0
       corner: 0
-  m_SpriteShape: {fileID: 11400000, guid: 399a8dddafe935f46a6c486e5577a361, type: 2}
+  m_SpriteShape: {fileID: 11400000, guid: f4de5c96145c17b4fb05a197b822c272, type: 2}
   m_SplineDetail: 16
   m_AdaptiveUV: 1
   m_UpdateCollider: 0
   m_ColliderDetail: 4
   m_ColliderOffset: 0.13
   m_ColliderCornerType: 0
---- !u!114 &114785459073414540
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1862913413795640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0ac1e572418a043bbb21ce604fbc95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 4
-  explode: {fileID: 19800002, guid: 3364c97de68d3a147af572d1c71c6455, type: 2}
-  damagedSprite: {fileID: 11400000, guid: 44dee531f4dda9a47b5b8aaacf9b43e3, type: 2}
---- !u!1971053207 &8633865680563437090
+--- !u!1971053207 &8633865682355763814
 SpriteShapeRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1862913413795640}
+  m_GameObject: {fileID: 1659516443909480}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -155,7 +140,7 @@ SpriteShapeRenderer:
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 0}
   m_Sprites:
-  - {fileID: 21300000, guid: d593dbc0e825eaa438617420943a6d16, type: 3}
+  - {fileID: 21300000, guid: 68b22d688eee96348a78d9bf6f8e505b, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

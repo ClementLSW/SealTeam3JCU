@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562257515058162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.026621483, y: 1.0529366, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,11 +58,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 2.13, y: 2.13}
-  - {x: -2.13, y: 2.13}
-  - {x: -2.13, y: 1.87}
-  - {x: 2.13, y: 1.87}
-  - {x: 2.13, y: 2.13}
+  - {x: 2.0490196, y: 2.13}
+  - {x: -2.0530686, y: 2.13}
+  - {x: -2.0530686, y: 1.8699999}
+  - {x: 2.0530686, y: 1.8659508}
+  - {x: 2.0507956, y: 2.129483}
 --- !u!114 &114191208637360628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_SpriteShape: {fileID: 11400000, guid: 29d543bd37fe7b449b585bf7d7c2ba04, type: 2}
   m_SplineDetail: 16
   m_AdaptiveUV: 1
-  m_UpdateCollider: 1
+  m_UpdateCollider: 0
   m_ColliderDetail: 4
   m_ColliderOffset: 0.13
   m_ColliderCornerType: 0
