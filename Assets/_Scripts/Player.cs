@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -50,6 +52,11 @@ public class Player : MonoBehaviour
 
     public enum FaceDir {NULL, LEFT, RIGHT };
     protected FaceDir currFaceDir = FaceDir.RIGHT;
+
+    [Space(10)]
+
+    [SerializeField] private Image arrowImg;
+    [SerializeField] private TextMeshProUGUI playerNameTxt;
 
     protected void Start()
     {
@@ -180,9 +187,13 @@ public class Player : MonoBehaviour
         return hit.collider;
     }
 
-    public void ConfigurePlayer(ControlMap controlMap)
+    public void ConfigurePlayer(ControlMap controlMap, Color arrowColor, string playerName)
     {
         this.controlMap = controlMap;
+        arrowImg.color = arrowColor;
+        playerNameTxt.text = playerName;
+
+        Destroy(playerNameTxt, 5);
     }
 
     public void TakeDamage(Vector2 pushbackDir, float weaponPower)
@@ -221,7 +232,7 @@ public class Player : MonoBehaviour
                     StartCoroutine(SwitchWeaponTemp());
                     break;
                 case Powerup.PowerupType.TELEPORT:
-                    StartCoroutine(SwitchWeaponTemp());
+                    GameManager.instance.PowerupCollected(Powerup.PowerupType.TELEPORT);
                     break;
                 default:
                     break;
@@ -244,7 +255,9 @@ public class Player : MonoBehaviour
             currWeapon = WeaponType.ROCKET;
             weaponDuration = rocketPowerupDuration;
         }
+        Debug.Log("Set Weapon CD to " + weaponDuration);
         yield return new WaitForSeconds(weaponDuration);
+        Debug.Log("CD Fin");
         currWeapon = WeaponType.MELEE;
     }
 

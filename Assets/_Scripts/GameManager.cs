@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player2KnockbackTxt;
     [SerializeField] private TextMeshProUGUI player1LivesTxt;
     [SerializeField] private TextMeshProUGUI player2LivesTxt;
+    [SerializeField] private TextMeshProUGUI gameOverlayText;
+    private Timer gameCDTimer = new Timer();
 
     [Space(10)]
 
@@ -65,7 +67,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         SpawnPlayers();
-        SpawnPowerup();
+        gameCDTimer.SetTimer(3);
+        StartCoroutine(Setup());
     }
 
     private void Update()
@@ -75,16 +78,35 @@ public class GameManager : MonoBehaviour
 
         player1LivesTxt.text = "Lives:" + player1Lives.ToString();
         player2LivesTxt.text = "Lives:" + player2Lives.ToString();
+
+        SpawnPowerup();
+    }
+
+    private IEnumerator Setup()
+    {
+        while(!gameCDTimer.TimeIsUp)
+        {
+            gameOverlayText.text = ((int)gameCDTimer.TimeLeft).ToString();
+            yield return null;
+        }
+
+        gameOverlayText.text = "BEGIN";
+        yield return new WaitForSeconds(1);
+        gameOverlayText.text = "";
+        // Enable controls
     }
 
     private void SetRandArea()
     {
-        currArea = area[Random.Range(0, area.Count - 1)];
+        if (currArea != null)
+            currArea = area[(area.IndexOf(currArea) + 1) % area.Count];
+        else
+            currArea = area[0];
     }
 
     private void SpawnPowerup()
     {
-        if(powerupSpnTimer.TimeIsUp && powerupCollected)
+        if (powerupSpnTimer.TimeIsUp && powerupCollected)
         {
             powerupSpnTimer.SetTimer(powerupSpawnFreq);
             Instantiate(powerup_Prefab, currArea.GetRandPowerupSpn().position, Quaternion.identity);
@@ -92,10 +114,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PowerupCollected()
+    public void PowerupCollected(Powerup.PowerupType powerup)
     {
-        Debug.Log("Powerup Collecte");
+        switch (powerup)
+        {
+            case Powerup.PowerupType.GLOBAL:
+                StartCoroutine(ChangeArea());
+                break;
+            case Powerup.PowerupType.TELEPORT:
+                StartCoroutine(ChangeArea());
+                ChangeArea();
+                break;
+            default:
+                break;
+        }
+
         powerupCollected = true;
+    }
+
+    private IEnumerator ChangeArea()
+    {
+        player1.gameObject.SetActive(false);
+        player2.gameObject.SetActive(false);
+        SetRandArea();
+        // Play lightning animation
+        yield return new WaitForSeconds(2);
+        player1.gameObject.transform.position = currArea.spn1.position;
+        player2.gameObject.transform.position = currArea.spn2.position;
+        player1.gameObject.SetActive(true);
+        player2.gameObject.SetActive(true);
+
+        foreach (Powerup powerup in FindObjectsOfType<Powerup>())
+        {
+            Destroy(powerup.gameObject);
+            powerupCollected = false;
+        }
     }
 
     private void SpawnPlayers()
@@ -104,12 +157,12 @@ public class GameManager : MonoBehaviour
 
         // Spawn player1
         player1 = Instantiate(playerPrefab, currArea.spn1.position, currArea.spn1.rotation).GetComponent<Player>();
-        player1.ConfigurePlayer(controlMaps[0]);
+        player1.ConfigurePlayer(controlMaps[0], Color.red, "Player1");
         player1.name = "Player1";
 
          // Spawn player2
         player2 = Instantiate(playerPrefab, currArea.spn2.position, currArea.spn2.rotation).GetComponent<Player>();
-        player2.ConfigurePlayer(controlMaps[1]);
+        player2.ConfigurePlayer(controlMaps[1], Color.blue, "Player2");
         player2.GetComponent<Player>().SetFaceDir(Player.FaceDir.LEFT);
         player2.name = "Player2";
 
