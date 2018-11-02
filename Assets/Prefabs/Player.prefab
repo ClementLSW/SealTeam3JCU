@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1824364655590424}
   m_IsPrefabAsset: 1
+--- !u!1 &1191895221104998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4091654936323630}
+  m_Layer: 10
+  m_Name: gunFiringPT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1415562560347060
 GameObject:
   m_ObjectHideFlags: 0
@@ -20,7 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4788622980094374}
   m_Layer: 10
-  m_Name: firingpt
+  m_Name: rocketFiringPT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,18 +60,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4788622980094374
+--- !u!4 &4091654936323630
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1415562560347060}
+  m_GameObject: {fileID: 1191895221104998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.74, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4829778803431850}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4788622980094374
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415562560347060}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.24, y: 2.53, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4829778803431850}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4829778803431850
 Transform:
@@ -68,6 +96,7 @@ Transform:
   m_LocalPosition: {x: -10.65, y: -2.71, z: -0.033782087}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
+  - {fileID: 4091654936323630}
   - {fileID: 4788622980094374}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -121,21 +150,27 @@ MonoBehaviour:
   moveSpd: 5
   jumpForce: 10
   groundRaycastLen: 0.7
-  currWeapon: 0
+  currWeapon: 2
   knockbackMultiplyer: 1
   knockbackIncrement: 1
   baseKnockback: 5
   currKnockbackForce: 0
   meleePower: 1
-  meleeColl: {fileID: 0}
+  meleeRange: 2
   meleeCD: 0.2
-  enemyPlayer: {fileID: 0}
+  gunFiringPt: {fileID: 4091654936323630}
   gunPower: 0.1
-  firingPt: {fileID: 4788622980094374}
   bulletPrefab: {fileID: 1782866162845518, guid: 056818dd8d62a96458055a6a1ccf63bd,
     type: 2}
   bulletSpd: 10
   gunCD: 0.5
+  rocketFiringPt: {fileID: 4788622980094374}
+  rocketPower: 1.5
+  rocketPrefab: {fileID: 1351857094960980, guid: 91f0a9354adb4e04884ed0dd905669a8,
+    type: 2}
+  rocketSpd: 10
+  rocketCD: 2
+  rocketSteerSpd: 300
 --- !u!212 &212537409398194744
 SpriteRenderer:
   m_ObjectHideFlags: 1

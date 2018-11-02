@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpd = 10f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float groundRaycastLen = 0.7f;
-    private enum WeaponType { MELEE, GUN };
+    private enum WeaponType { MELEE, GUN, ROCKET };
     [SerializeField] private WeaponType currWeapon = WeaponType.MELEE;
 
     [Header("Knockback")]
@@ -27,12 +27,21 @@ public class Player : MonoBehaviour
     private Timer meleeNextCD = new Timer();
 
     [Header("Gun Properties")]
+    [SerializeField] private Transform gunFiringPt;
     [SerializeField] private float gunPower = 0.1f;
-    [SerializeField] private Transform firingPt;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpd = 10f;
     [SerializeField] private float gunCD = 0.5f;
     private Timer gunNextCD = new Timer();
+
+    [Header("Hom Rocket Properties")]
+    [SerializeField] private Transform rocketFiringPt;
+    [SerializeField] private float rocketPower = 1.5f;
+    [SerializeField] private GameObject rocketPrefab;
+    [SerializeField] private float rocketSpd = 10f;
+    [SerializeField] private float rocketCD = 2f;
+    [SerializeField] private float rocketSteerSpd = 10f;
+    private Timer rocketNextCD = new Timer();
 
     private Timer controlsUnlockTime = new Timer();
     private float controlsLockDuration = 1f;
@@ -43,6 +52,28 @@ public class Player : MonoBehaviour
     protected void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        MovePlayer();
+        UpdatePlayerFaceDir();
+
+        if (Input.GetKeyDown(controlMap.basicAtt))
+        {
+            switch (currWeapon)
+            {
+                case WeaponType.MELEE:
+                    MeleeAtt();
+                    break;
+                case WeaponType.GUN:
+                    GunShoot();
+                    break;
+                case WeaponType.ROCKET:
+                    RocketShoot();
+                    break;
+            }
+        }
     }
 
     private void MeleeAtt()
@@ -70,33 +101,34 @@ public class Player : MonoBehaviour
             return;
 
         gunNextCD.SetTimer(gunCD);
-        GameObject bullet = Instantiate(bulletPrefab, firingPt.position, firingPt.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, gunFiringPt.position, gunFiringPt.rotation);
 
         Vector2 dir = Vector2.right;
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
 
-        bullet.GetComponent<Projectile>().SetPushForce(gunPower);
+        bullet.GetComponent<Projectile>().SetupProjectile(gunPower);
         bullet.GetComponent<Rigidbody2D>().AddForce(dir * bulletSpd, ForceMode2D.Impulse);
     }
 
-    private void Update()
+    private void RocketShoot()
     {
-        MovePlayer();
-        UpdatePlayerFaceDir();
+        if (!rocketNextCD.TimeIsUp)
+            return;
 
-        if (Input.GetKeyDown(controlMap.basicAtt))
-        {
-            switch (currWeapon)
-            {
-                case WeaponType.MELEE:
-                    MeleeAtt();
-                    break;
-                case WeaponType.GUN:
-                    GunShoot();
-                    break;
-            }
-        }
+        rocketNextCD.SetTimer(rocketCD);
+        GameObject rocket = Instantiate(rocketPrefab, rocketFiringPt.position, rocketFiringPt.rotation);
+
+        Vector2 dir = Vector2.right;
+        if (currFaceDir == FaceDir.LEFT)
+            dir = -dir;
+
+        rocket.GetComponent<HormingRocket>().SetupProjectile(gunPower);
+        rocket.GetComponent<HormingRocket>().SetupHormingRocket(
+            GameManager.instance.GetEnemy(this).gameObject.transform,
+            rocketSpd,
+            rocketSteerSpd
+            );
     }
 
     private void UpdatePlayerFaceDir(FaceDir forcedFaceDir = FaceDir.NULL)

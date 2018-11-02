@@ -1,0 +1,31 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HormingRocket : Projectile
+{
+    private Transform target;
+    private float flySpd;
+    private float steerSpd;
+
+    private new void Start()
+    {
+        base.Start();
+    }
+
+    public void SetupHormingRocket(Transform target, float flySpd, float steerSpd)
+    {
+        this.target = target;
+        this.flySpd = flySpd;
+        this.steerSpd = steerSpd;
+    }
+
+    private void Update()
+    {
+        Vector2 dir = target.position - transform.position;
+        dir.Normalize();
+        float rotateAmt = Vector3.Cross(dir, transform.up).z;
+        rb.angularVelocity = -rotateAmt * steerSpd;
+        rb.velocity = transform.up * flySpd;
+    }
+}
