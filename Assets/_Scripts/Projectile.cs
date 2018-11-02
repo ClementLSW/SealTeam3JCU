@@ -5,25 +5,27 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     private Collider2D coll;
+    protected Rigidbody2D rb;
 
     private float weaponPower;
 
-    private void Start()
+    protected void Start()
     {
         coll = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, 10);
     }
 
-    public void SetPushForce(float weaponPower)
+    public void SetupProjectile(float weaponPower)
     {
         this.weaponPower = weaponPower;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Vector2 moveDir = GetComponent<Rigidbody2D>().velocity;
+            Vector2 moveDir = rb.velocity;
             moveDir.Normalize();
             collision.gameObject.GetComponent<Player>().TakeDamage(moveDir, weaponPower);
         }
