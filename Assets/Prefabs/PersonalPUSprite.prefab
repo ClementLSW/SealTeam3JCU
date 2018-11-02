@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4994477305906856}
   - component: {fileID: 212062633984082524}
   - component: {fileID: 61746345440749468}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PersonalPUSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
