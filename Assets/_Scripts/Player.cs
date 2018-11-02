@@ -21,12 +21,13 @@ public class Player : MonoBehaviour
     public float currKnockbackForce = 0;
 
     [Header("Melee Properties")]
-    [SerializeField] private CircleCollider2D meleeColl;
+    [SerializeField] private float meleePower = 1;
+    [SerializeField] private float meleeRange = 2;
     [SerializeField] private float meleeCD = 0.2f;
     private Timer meleeNextCD = new Timer();
-    [SerializeField] private Player enemyPlayer;
 
     [Header("Gun Properties")]
+    [SerializeField] private float gunPower = 0.1f;
     [SerializeField] private Transform firingPt;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpd = 10f;
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour
 
     private void MeleeAtt()
     {
-        if (!enemyPlayer)
+        if (!GameManager.instance.EnemyInRange(meleeRange))
             return;
 
         if (!gunNextCD.TimeIsUp)
@@ -60,7 +61,7 @@ public class Player : MonoBehaviour
         else
             moveDir = Vector2.right;
 
-        enemyPlayer.TakeDamage(moveDir);
+        GameManager.instance.GetEnemy(this).TakeDamage(moveDir, meleePower);
     }
 
     private void GunShoot()
@@ -75,6 +76,7 @@ public class Player : MonoBehaviour
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
 
+        bullet.GetComponent<Projectile>().SetPushForce(gunPower);
         bullet.GetComponent<Rigidbody2D>().AddForce(dir * bulletSpd, ForceMode2D.Impulse);
     }
 
@@ -149,7 +151,7 @@ public class Player : MonoBehaviour
         this.controlMap = controlMap;
     }
 
-    public void TakeDamage(Vector2 pushbackDir)
+    public void TakeDamage(Vector2 pushbackDir, float weaponPower)
     {
         currKnockbackForce += knockbackIncrement;
         rb2D.velocity = Vector2.zero;
@@ -157,7 +159,7 @@ public class Player : MonoBehaviour
         pushbackDir.y = 1;
         pushbackDir.Normalize();
 
-        rb2D.AddForce(pushbackDir * currKnockbackForce * knockbackMultiplyer * baseKnockback, ForceMode2D.Impulse);
+        rb2D.AddForce(pushbackDir * (baseKnockback + currKnockbackForce) * knockbackMultiplyer * weaponPower, ForceMode2D.Impulse);
         controlsUnlockTime.SetTimer(controlsLockDuration);
     }
 
@@ -171,19 +173,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Border"))
         {
             GameManager.instance.RegisterBorderCollision(this);
-        }
-
-        if (collision.gameObject.GetComponent<Player>() && collision.gameObject != gameObject)
-        {
-            enemyPlayer = collision.GetComponent<Player>();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<Player>() && collision.gameObject != gameObject)
-        {
-            enemyPlayer = null;
         }
     }
 

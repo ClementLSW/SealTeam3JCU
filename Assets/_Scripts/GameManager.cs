@@ -76,12 +76,24 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SendPlayerToSpawn(Player sourcePlayer)
     {
-        Debug.Log("HEY");
         sourcePlayer.gameObject.SetActive(false);
         yield return new WaitForSeconds(3);
         sourcePlayer.gameObject.transform.position = area1_p1_spawn.position;
         sourcePlayer.gameObject.SetActive(true);
         yield return null;
+    }
+
+    public bool EnemyInRange(float dist)
+    {
+        return Vector2.Distance(player1.gameObject.transform.position, player2.gameObject.transform.position) <= dist;
+    }
+
+    public Player GetEnemy(Player sourcePlayer)
+    {
+        if (sourcePlayer == player1)
+            return player2;
+        else
+            return player1;
     }
 }
 
