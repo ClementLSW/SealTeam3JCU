@@ -73,6 +73,12 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+<<<<<<< HEAD
+=======
+
+        SFXManager.instance.PlayBgm(SFXManager.Sound.TITLEBGM);
+        Setup();
+>>>>>>> parent of fbeff3d... no message
     }
 
     private void Update()
@@ -82,6 +88,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+<<<<<<< HEAD
         player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
         player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
 
@@ -89,6 +96,10 @@ public class GameManager : MonoBehaviour
         player2LivesTxt.text = "Lives:" + player2Lives.ToString();
 
         SpawnPowerup();
+=======
+        player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce * 10 + "%";
+        player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce * 10 + "%";
+>>>>>>> parent of fbeff3d... no message
     }
 
     public void Setup()
@@ -109,10 +120,15 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        SFXManager.instance.PlayBgm(SFXManager.Sound.MAINBGM);
         gameOverlayText.text = "BEGIN";
         yield return new WaitForSeconds(1);
         gameOverlayText.text = "";
+<<<<<<< HEAD
         // Enable controls
+=======
+        SpawnPowerup();
+>>>>>>> parent of fbeff3d... no message
     }
 
     private void SetRandArea()
