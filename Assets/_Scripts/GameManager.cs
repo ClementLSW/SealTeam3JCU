@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        SFXManager.instance.PlayBgm(SFXManager.Sound.TITLEBGM);
     }
 
     private void Update()
@@ -88,8 +90,6 @@ public class GameManager : MonoBehaviour
 
         player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
         player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
-
-        SpawnPowerup();
     }
 
     public void Setup()
@@ -110,10 +110,11 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        SFXManager.instance.PlayBgm(SFXManager.Sound.MAINBGM);
         gameOverlayText.text = "BEGIN";
         yield return new WaitForSeconds(1);
         gameOverlayText.text = "";
-        // Enable controls
+        SpawnPowerup();
     }
 
     private void SetRandArea()

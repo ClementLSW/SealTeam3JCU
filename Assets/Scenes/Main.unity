@@ -8597,7 +8597,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43d90cacf9f7a540ad307537ba58d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound1: {fileID: 0}
+  mainbgm: {fileID: 0}
+  titlebgm: {fileID: 0}
+  death: {fileID: 0}
+  start: {fileID: 0}
+  gunshot: {fileID: 0}
+  pickup: {fileID: 0}
+  impact: {fileID: 0}
+  bgmSource: {fileID: 0}
+  sfxSource: {fileID: 0}
 --- !u!1 &1557562217
 GameObject:
   m_ObjectHideFlags: 0
@@ -10176,7 +10184,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
