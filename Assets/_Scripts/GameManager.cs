@@ -230,7 +230,6 @@ public class GameManager : MonoBehaviour
          // Spawn player2
         player2 = Instantiate(playerPrefab, currArea.spn2.position, currArea.spn2.rotation).GetComponent<Player>();
         player2.ConfigurePlayer(controlMaps[1], Color.blue, "Player2");
-        player2.GetComponent<Player>().SetFaceDir(Player.FaceDir.LEFT);
         player2.name = "Player2";
 
         CameraController.instance.SetPlayersToTrack(player1.gameObject, player2.gameObject);
