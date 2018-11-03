@@ -9041,9 +9041,10 @@ MonoBehaviour:
   start: {fileID: 8300000, guid: 19a8ddcf5385f504e824a6b5a11fb141, type: 3}
   gunshot: {fileID: 8300000, guid: 9c72d21f3c39b8043a0bc9e2f62e5979, type: 3}
   pickup: {fileID: 8300000, guid: b80aa6cd182277e4c8cf828e355d90a7, type: 3}
-  impact: {fileID: 8300000, guid: 121d2f4bacb4e5547b5a0c7047b5254e, type: 3}
+  impact: {fileID: 8300000, guid: 13fb4cf45cfedb74380b1006eef86463, type: 3}
   gameOver: {fileID: 8300000, guid: ffc0a4c5e2d1161478e9fe78613efe57, type: 3}
   rocketFire: {fileID: 8300000, guid: dc0774e25e097254fbc3ccf2f5985a79, type: 3}
+  explosion: {fileID: 8300000, guid: 603fb1eff241eb049843b4701cac4366, type: 3}
   bgmSource: {fileID: 0}
   sfxSource: {fileID: 0}
 --- !u!1 &1557562217
@@ -10441,7 +10442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1697186485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10626,11 +10627,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -11356,11 +11357,11 @@ MonoBehaviour:
   - left: 97
     right: 100
     jump: 32
-    basicAtt: 110
+    basicAtt: 98
   - left: 276
     right: 275
     jump: 273
-    basicAtt: 57
+    basicAtt: 265
   powerup_Prefab: {fileID: 1277461021074892, guid: 19eab6b462185434294f31815371c1b9,
     type: 2}
   powerupSpawnFreq: 5

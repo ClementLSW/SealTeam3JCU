@@ -37,6 +37,7 @@ public class HormingRocket : Projectile
         {
             collider.gameObject.GetComponent<Platform>().registerDamage(1);
         }
+        SFXManager.instance.PlaySound(SFXManager.Sound.EXPLOSION, false);
         base.OnCollisionEnter2D(collider);
     }
 }

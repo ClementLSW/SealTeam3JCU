@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
 
-        SFXManager.instance.PlaySound(SFXManager.Sound.ROCKET, false);
+        SFXManager.instance.PlaySound(SFXManager.Sound.ROCKETFIRE, false);
 
         rocket.GetComponent<HormingRocket>().SetupProjectile(rocketPower);
         rocket.GetComponent<HormingRocket>().SetupHormingRocket(
@@ -159,12 +159,12 @@ public class Player : MonoBehaviour
     {
         float localYScalePositive = Mathf.Abs(transform.localScale.x);
 
-        if (forcedFaceDir == FaceDir.LEFT || rb2D.velocity.x < 0)
+        if (forcedFaceDir == FaceDir.LEFT || (rb2D && rb2D.velocity.x < 0))
         {
             currFaceDir = FaceDir.LEFT;
             transform.localScale = new Vector2(-localYScalePositive, localYScalePositive);
         }
-        else if (forcedFaceDir == FaceDir.RIGHT || rb2D.velocity.x > 0)
+        else if (forcedFaceDir == FaceDir.RIGHT || (rb2D && rb2D.velocity.x > 0))
         {
             currFaceDir = FaceDir.RIGHT;
             transform.localScale = new Vector2(localYScalePositive, localYScalePositive);
@@ -231,11 +231,6 @@ public class Player : MonoBehaviour
 
         rb2D.AddForce(pushbackDir * (baseKnockback + currKnockbackForce) * knockbackMultiplyer * weaponPower, ForceMode2D.Impulse);
         controlsUnlockTime.SetTimer(controlsLockDuration);
-    }
-
-    public void SetFaceDir(FaceDir dir)
-    {
-        UpdatePlayerFaceDir(dir);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

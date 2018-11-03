@@ -223,12 +223,12 @@ public class GameManager : MonoBehaviour
         SetRandArea();
 
         // Spawn player1
-        player1 = Instantiate(playerPrefab, currArea.spn1.position, currArea.spn1.rotation).GetComponent<Player>();
+        player1 = Instantiate(playerPrefab, currArea.spn1.position, Quaternion.identity).GetComponent<Player>();
         player1.ConfigurePlayer(controlMaps[0], Color.red, "Player1");
         player1.name = "Player1";
 
          // Spawn player2
-        player2 = Instantiate(playerPrefab, currArea.spn2.position, currArea.spn2.rotation).GetComponent<Player>();
+        player2 = Instantiate(playerPrefab, currArea.spn2.position, Quaternion.identity).GetComponent<Player>();
         player2.ConfigurePlayer(controlMaps[1], Color.blue, "Player2");
         player2.name = "Player2";
 
