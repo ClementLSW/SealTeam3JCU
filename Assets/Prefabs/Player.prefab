@@ -470,8 +470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95326285284566248}
-  moveSpd: 5
-  jumpForce: 10
+  moveSpd: 7
+  jumpForce: 15
   groundRaycastLen: 1.3
   currWeapon: 0
   knockbackMultiplyer: 1
