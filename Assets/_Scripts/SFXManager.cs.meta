@@ -3,7 +3,13 @@ guid: e43d90cacf9f7a540ad307537ba58d3c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bgm: {fileID: 8300000, guid: f589ddf07a05fbb4595f7ba75e1f3abf, type: 3}
+  - death: {fileID: 8300000, guid: 9b9d3b5d2d88ebe49869691e2391c0c9, type: 3}
+  - start: {fileID: 8300000, guid: 19a8ddcf5385f504e824a6b5a11fb141, type: 3}
+  - gunshot: {fileID: 8300000, guid: 9c72d21f3c39b8043a0bc9e2f62e5979, type: 3}
+  - pickup: {fileID: 8300000, guid: b80aa6cd182277e4c8cf828e355d90a7, type: 3}
+  - impact: {fileID: 8300000, guid: 8933dece453ae9548b6a3bd3177b36b2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
