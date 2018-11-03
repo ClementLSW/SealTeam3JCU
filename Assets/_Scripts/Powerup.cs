@@ -14,6 +14,7 @@ public class Powerup : MonoBehaviour
 
     public enum PowerupType { NULL, GLOBAL, PERSONAL, TELEPORT };
     public PowerupType powerupType = PowerupType.NULL;
+    public enum GlobalPowerupType { SPEED, KNOCKBACK, FIRERATE }
 
     private void Start()
     {

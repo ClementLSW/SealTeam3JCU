@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     private Player player1;
     private Player player2;
+    private bool setupDone = false;
 
     [Header("Total Health")]
     [SerializeField] private int player1Lives = 5;
@@ -65,14 +66,15 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-
-        SpawnPlayers();
-        gameCDTimer.SetTimer(3);
-        StartCoroutine(Setup());
     }
 
     private void Update()
     {
+        if (!setupDone)
+        {
+            return;
+        }
+
         player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
         player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
 
@@ -82,11 +84,21 @@ public class GameManager : MonoBehaviour
         SpawnPowerup();
     }
 
-    private IEnumerator Setup()
+    public void Setup()
+    {
+        SpawnPlayers();
+        player1.controlsUnlockTime.SetTimer(3);
+        player2.controlsUnlockTime.SetTimer(3);
+        gameCDTimer.SetTimer(3);
+        StartCoroutine(CountDownGameStart());
+        setupDone = true;
+    }
+
+    private IEnumerator CountDownGameStart()
     {
         while(!gameCDTimer.TimeIsUp)
         {
-            gameOverlayText.text = ((int)gameCDTimer.TimeLeft).ToString();
+            gameOverlayText.text = ((int)gameCDTimer.TimeLeft + 1).ToString();
             yield return null;
         }
 
@@ -119,7 +131,21 @@ public class GameManager : MonoBehaviour
         switch (powerup)
         {
             case Powerup.PowerupType.GLOBAL:
-                StartCoroutine(ChangeArea());
+                switch(Random.Range(0, 3))
+                {
+                    case 0:
+                        player1.TempKnockbackModification();
+                        player2.TempKnockbackModification();
+                        break;
+                    case 1:
+                        player1.TempSpeedModification();
+                        player2.TempSpeedModification();
+                        break;
+                    case 2:
+                        player1.TempKnockbackModification();
+                        player2.TempKnockbackModification();
+                        break;
+                }
                 break;
             case Powerup.PowerupType.TELEPORT:
                 StartCoroutine(ChangeArea());

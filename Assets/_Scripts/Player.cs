@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float rocketPowerupDuration = 10f;
     private Timer rocketNextCD = new Timer();
 
-    private Timer controlsUnlockTime = new Timer();
+    public Timer controlsUnlockTime = new Timer();
     private float controlsLockDuration = 1f;
 
     public enum FaceDir {NULL, LEFT, RIGHT };
@@ -57,6 +57,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Image arrowImg;
     [SerializeField] private TextMeshProUGUI playerNameTxt;
+
+    [Space(10)]
+    [SerializeField] private GameObject globalPU;
 
     protected void Start()
     {
@@ -226,7 +229,7 @@ public class Player : MonoBehaviour
             switch (powerup.powerupType)
             {
                 case Powerup.PowerupType.GLOBAL:
-                    StartCoroutine(SwitchWeaponTemp());
+                    GameManager.instance.PowerupCollected(Powerup.PowerupType.GLOBAL);
                     break;
                 case Powerup.PowerupType.PERSONAL:
                     StartCoroutine(SwitchWeaponTemp());
@@ -241,9 +244,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator SwitchWeaponTemp()
+    public IEnumerator TempFiringRateModification()
     {
-        int weaponType = Random.Range(0, 1);
+        ToggleGlobalPowerupAnim(true);
+        float origMeleeCD = meleeCD;
+        float origGunCD = gunCD;
+        float origRocketCD = rocketCD;
+
+        meleeCD *= 2;
+        gunCD *= 2;
+        rocketCD *= 2;
+        yield return new WaitForSeconds(10);
+        ToggleGlobalPowerupAnim(false);
+
+        meleeCD = origMeleeCD;
+        gunCD = origGunCD;
+        rocketCD = origRocketCD;
+    }
+
+    public IEnumerator TempKnockbackModification()
+    {
+        ToggleGlobalPowerupAnim(true);
+        float origKnockbackMultiplyer = knockbackMultiplyer;
+        origKnockbackMultiplyer *= 2;
+        yield return new WaitForSeconds(10);
+        ToggleGlobalPowerupAnim(false);
+        knockbackMultiplyer = origKnockbackMultiplyer;
+    }
+
+    public IEnumerator TempSpeedModification()
+    {
+        ToggleGlobalPowerupAnim(true);
+        float origSpd = moveSpd;
+        moveSpd *= 2;
+        yield return new WaitForSeconds(10);
+        ToggleGlobalPowerupAnim(false);
+        moveSpd = origSpd;
+    }
+
+    public IEnumerator SwitchWeaponTemp()
+    {
+        int weaponType = Random.Range(0, 2);
         float weaponDuration = 0;
         if (weaponType == 0)
         {
@@ -259,6 +300,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(weaponDuration);
         Debug.Log("CD Fin");
         currWeapon = WeaponType.MELEE;
+    }
+
+    private void ToggleGlobalPowerupAnim(bool state)
+    {
+        globalPU.SetActive(state);
     }
 
     public void ResetCurrentKnockback()
