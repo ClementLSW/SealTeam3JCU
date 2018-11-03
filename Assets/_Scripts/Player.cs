@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
     [Space(10)]
     [SerializeField] private GameObject globalPU;
 
+    public int player;
+
     protected void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -71,20 +73,40 @@ public class Player : MonoBehaviour
     {
         MovePlayer();
         UpdatePlayerFaceDir();
-
-        if (Input.GetKeyDown(controlMap.basicAtt))
+        if (player == 1)
         {
-            switch (currWeapon)
+            if (Input.GetButtonDown("P1Fire1"))
             {
-                case WeaponType.MELEE:
-                    MeleeAtt();
-                    break;
-                case WeaponType.GUN:
-                    GunShoot();
-                    break;
-                case WeaponType.ROCKET:
-                    RocketShoot();
-                    break;
+                switch (currWeapon)
+                {
+                    case WeaponType.MELEE:
+                        MeleeAtt();
+                        break;
+                    case WeaponType.GUN:
+                        GunShoot();
+                        break;
+                    case WeaponType.ROCKET:
+                        RocketShoot();
+                        break;
+                }
+            }
+        }
+        else if (player == 2)
+        {
+            if (Input.GetButtonDown("P2Fire1"))
+            {
+                switch (currWeapon)
+                {
+                    case WeaponType.MELEE:
+                        MeleeAtt();
+                        break;
+                    case WeaponType.GUN:
+                        GunShoot();
+                        break;
+                    case WeaponType.ROCKET:
+                        RocketShoot();
+                        break;
+                }
             }
         }
     }
@@ -170,31 +192,59 @@ public class Player : MonoBehaviour
         if (!controlsUnlockTime.TimeIsUp)
             return;
 
-        if (Input.GetKey(controlMap.left))
-        {
-            rb2D.velocity = -(Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
-            animator.SetInteger("Speed", 1);
-        }
-        else if (Input.GetKey(controlMap.right))
-        {
-            rb2D.velocity = (Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
-            animator.SetInteger("Speed", 1);
-        }
+        print(Input.GetAxis("P1Horizontal"));
 
-        if (IsOnGround() && !Input.GetKey(controlMap.left) && !Input.GetKey(controlMap.right))
+        if (player == 1)
         {
-            animator.SetInteger("Speed", 0);
-        }
+            if (Input.GetAxis("P1Horizontal") < 0f)
+            {
+                rb2D.velocity = -(Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
+                animator.SetInteger("Speed", 1);
+                Debug.Log(rb2D.velocity);
+            }
+            else if (Input.GetAxis("P1Horizontal") > 0f)
+            {
+                rb2D.velocity = (Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
+                animator.SetInteger("Speed", 1);
+                Debug.Log(rb2D.velocity);
+            }
 
-        if (!Input.GetKey(controlMap.left) && !Input.GetKey(controlMap.right))
-        {
-            rb2D.velocity = new Vector2(0, rb2D.velocity.y);
-        }
+            if (IsOnGround() && Input.GetAxis("P1Horizontal") == 0)
+            {
+                animator.SetInteger("Speed", 0);
+            }
 
-        if (IsOnGround() && Input.GetKeyDown(controlMap.jump))
+            if (IsOnGround() && Input.GetButtonDown("P1Jump"))
+            {
+                rb2D.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+                animator.SetTrigger("Jump");
+            }
+        }
+        else if (player == 2)
         {
-            rb2D.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetTrigger("Jump");
+            if (Input.GetAxis("P2Horizontal") < 0f)
+            {
+                rb2D.velocity = -(Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
+                animator.SetInteger("Speed", 1);
+                Debug.Log(rb2D.velocity);
+            }
+            else if (Input.GetAxis("P2Horizontal") > 0f)
+            {
+                rb2D.velocity = (Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
+                animator.SetInteger("Speed", 1);
+                Debug.Log(rb2D.velocity);
+            }
+
+            if (IsOnGround() && Input.GetAxis("P2Horizontal") == 0)
+            {
+                animator.SetInteger("Speed", 0);
+            }
+
+            if (IsOnGround() && Input.GetButtonDown("P2Jump"))
+            {
+                rb2D.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+                animator.SetTrigger("Jump");
+            }
         }
     }
 

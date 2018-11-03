@@ -213,16 +213,18 @@ public class GameManager : MonoBehaviour
     private void SpawnPlayers()
     {
         SetRandArea();
-
+        
         // Spawn player1
         player1 = Instantiate(playerPrefab, currArea.spn1.position, currArea.spn1.rotation).GetComponent<Player>();
         player1.ConfigurePlayer(controlMaps[0], Color.red, "Player1");
+        player1.player = 1;
         player1.name = "Player1";
 
          // Spawn player2
         player2 = Instantiate(playerPrefab, currArea.spn2.position, currArea.spn2.rotation).GetComponent<Player>();
         player2.ConfigurePlayer(controlMaps[1], Color.blue, "Player2");
         player2.GetComponent<Player>().SetFaceDir(Player.FaceDir.LEFT);
+        player2.player = 2;
         player2.name = "Player2";
 
         CameraController.instance.SetPlayersToTrack(player1.gameObject, player2.gameObject);
@@ -334,6 +336,7 @@ public class ControlMap
 {
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
+
     public KeyCode jump = KeyCode.Space;
 
     public KeyCode basicAtt = KeyCode.N;
