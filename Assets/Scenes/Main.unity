@@ -10888,8 +10888,18 @@ MonoBehaviour:
     type: 2}
   player1KnockbackTxt: {fileID: 1969577223}
   player2KnockbackTxt: {fileID: 737731530}
-  player1LivesPos: {fileID: 0}
-  player2LivesPos: {fileID: 0}
+  player1Hearts:
+  - {fileID: 1860465118}
+  - {fileID: 997688367}
+  - {fileID: 1087703900}
+  - {fileID: 1164847904}
+  - {fileID: 966079850}
+  player2Hearts:
+  - {fileID: 752458601}
+  - {fileID: 835023321}
+  - {fileID: 1670900637}
+  - {fileID: 908567264}
+  - {fileID: 1873692133}
   gameOverlayText: {fileID: 826844140}
   locationText: {fileID: 670242186}
   globalPUPopup: {fileID: 1557562219}
