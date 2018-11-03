@@ -116,7 +116,14 @@ public class GameManager : MonoBehaviour
     private void SetRandArea()
     {
         if (currArea != null)
-            currArea = area[(area.IndexOf(currArea) + 1) % area.Count];
+        {
+            int newIndex = area.IndexOf(currArea) + 1;
+            Debug.Log(area.IndexOf(currArea) + " " + area.Count);
+            if (newIndex == area.Count)
+                newIndex = 0;
+
+            currArea = area[newIndex];
+        }
         else
             currArea = area[0];
     }
@@ -160,7 +167,6 @@ public class GameManager : MonoBehaviour
                 break;
             case Powerup.PowerupType.TELEPORT:
                 StartCoroutine(ChangeArea());
-                ChangeArea();
                 break;
             default:
                 break;
@@ -184,8 +190,9 @@ public class GameManager : MonoBehaviour
         foreach (Powerup powerup in FindObjectsOfType<Powerup>())
         {
             Destroy(powerup.gameObject);
-            powerupCollected = false;
         }
+        powerupCollected = true;
+        yield return null;
     }
 
     private void SpawnPlayers()
@@ -209,12 +216,58 @@ public class GameManager : MonoBehaviour
     public void RegisterBorderCollision(Player sourcePlayer)
     {
         sourcePlayer.ResetCurrentKnockback();
-        StartCoroutine(SendPlayerToSpawn(sourcePlayer));
 
         if (sourcePlayer == player1)
             player1Lives -= 1;
         else
             player2Lives -= 1;
+
+
+        if (player1Lives == 0 || player2Lives == 0)
+        {
+            Time.timeScale = 0;
+            StartCoroutine(RunEndGameSequence());
+            return;
+        }
+
+        StartCoroutine(SendPlayerToSpawn(sourcePlayer));
+    }
+
+    private IEnumerator RunEndGameSequence()
+    {
+        gameOverlayText.text = "GAME SET";
+        yield return new WaitForSecondsRealtime(1);
+        gameOverlayText.text = "";
+        yield return new WaitForSecondsRealtime(1);
+
+        int playerNo = 0;
+        if (player1Lives == 0)
+            playerNo = 2;
+        else
+            playerNo = 1;
+
+
+        gameOverlayText.text = "P";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PL";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLA";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAY";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYE";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYER ";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYER " + playerNo;
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYER " + playerNo + " W";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYER " + playerNo + " WI";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYER " + playerNo + " WIN";
+        yield return new WaitForSecondsRealtime(0.1f);
+        gameOverlayText.text = "PLAYER " + playerNo + " WINS";
     }
 
     private IEnumerator SendPlayerToSpawn(Player sourcePlayer)

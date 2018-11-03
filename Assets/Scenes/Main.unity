@@ -3020,8 +3020,8 @@ MonoBehaviour:
   powerup_Prefab: {fileID: 1277461021074892, guid: 19eab6b462185434294f31815371c1b9,
     type: 2}
   powerupSpawnFreq: 10
-  player1Lives: 5
-  player2Lives: 5
+  player1Lives: 2
+  player2Lives: 2
 --- !u!1 &1969577221
 GameObject:
   m_ObjectHideFlags: 0

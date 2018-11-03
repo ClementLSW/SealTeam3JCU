@@ -44,7 +44,6 @@ public class Powerup : MonoBehaviour
     public void Pickuped()
     {
         // TODO: Play animation
-        GameManager.instance.PowerupCollected(powerupType);
         Destroy(gameObject);
     }
 }

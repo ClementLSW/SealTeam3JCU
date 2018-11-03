@@ -236,6 +236,7 @@ public class Player : MonoBehaviour
                 case Powerup.PowerupType.PERSONAL:
                     Debug.Log("Get PERSONAL");
                     StartCoroutine(SwitchWeaponTemp());
+                    GameManager.instance.PowerupCollected(Powerup.PowerupType.PERSONAL);
                     break;
                 case Powerup.PowerupType.TELEPORT:
                     Debug.Log("Get TELEPORT");
