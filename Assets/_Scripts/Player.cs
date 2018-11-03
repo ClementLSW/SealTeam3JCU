@@ -257,9 +257,9 @@ public class Player : MonoBehaviour
     protected bool IsOnGround()
     {
         RaycastHit2D hitBottom = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLen, 1 << LayerMask.NameToLayer("Ground"));
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
-        return hitBottom.collider || hitLeft || hitRight;
+        //RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
+        //RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
+        return hitBottom.collider;// || hitLeft || hitRight;
     }
 
     public void ConfigurePlayer(ControlMap controlMap, Color arrowColor, string playerName)
@@ -281,6 +281,11 @@ public class Player : MonoBehaviour
 
         rb2D.AddForce(pushbackDir * (baseKnockback + currKnockbackForce) * knockbackMultiplyer * weaponPower, ForceMode2D.Impulse);
         controlsUnlockTime.SetTimer(controlsLockDuration);
+    }
+
+    public void SetFaceDir(FaceDir dir)
+    {
+        UpdatePlayerFaceDir(dir);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -33,7 +33,7 @@ public class HormingRocket : Projectile
     {
         CameraController.instance.Shake(0.3f, 0.3f);
 
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground") && collider.gameObject.GetComponent<Platform>())
         {
             collider.gameObject.GetComponent<Platform>().registerDamage(1);
         }
