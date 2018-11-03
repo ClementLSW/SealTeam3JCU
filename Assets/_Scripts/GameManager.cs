@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI player1KnockbackTxt;
     [SerializeField] private TextMeshProUGUI player2KnockbackTxt;
-    [SerializeField] private Transform player1LivesPos;
-    [SerializeField] private Transform player2LivesPos;
+    [SerializeField] private List<GameObject> player1Hearts;
+    [SerializeField] private List<GameObject> player2Hearts;
     [SerializeField] private TextMeshProUGUI gameOverlayText;
     [SerializeField] private TextMeshProUGUI locationText;
     [SerializeField] private Image globalPUPopup;
@@ -192,10 +192,13 @@ public class GameManager : MonoBehaviour
         switch (area.IndexOf(currArea))
         {
             case 0:
-                StartCoroutine(FlashLocation("AREA 1"));
+                StartCoroutine(FlashLocation("SEATTLE SPACE NEDDLE"));
                 break;
             case 1:
-                StartCoroutine(FlashLocation("AREA 2"));
+                StartCoroutine(FlashLocation("CRIST THE REDEEMER"));
+                break;
+            case 2:
+                StartCoroutine(FlashLocation("TAJ MAHAL"));
                 break;
         }
 
@@ -237,9 +240,15 @@ public class GameManager : MonoBehaviour
         sourcePlayer.ResetCurrentKnockback();
 
         if (sourcePlayer == player1)
+        {
             player1Lives -= 1;
+            Destroy(player1Hearts[player1Lives]);
+        }
         else
+        {
             player2Lives -= 1;
+            Destroy(player2Hearts[player2Lives]);
+        }
 
 
         if (player1Lives == 0 || player2Lives == 0)
