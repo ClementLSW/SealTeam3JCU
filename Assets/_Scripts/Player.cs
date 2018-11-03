@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     protected ControlMap controlMap = new ControlMap();
     private Rigidbody2D rb2D;
+    [SerializeField] private Animator animator;
 
     [Header("Base Config")]
     [SerializeField] private float moveSpd = 10f;
@@ -96,6 +97,8 @@ public class Player : MonoBehaviour
         if (!gunNextCD.TimeIsUp)
             return;
 
+        animator.SetTrigger("Punch");
+
         meleeNextCD.SetTimer(meleeCD);
         Vector2 moveDir;
 
@@ -112,7 +115,7 @@ public class Player : MonoBehaviour
     {
         if (!gunNextCD.TimeIsUp)
             return;
-
+        
         gunNextCD.SetTimer(gunCD);
         GameObject bullet = Instantiate(bulletPrefab, gunFiringPt.position, gunFiringPt.rotation);
 
@@ -128,6 +131,8 @@ public class Player : MonoBehaviour
     {
         if (!rocketNextCD.TimeIsUp)
             return;
+
+        animator.SetTrigger("Punch");
 
         rocketNextCD.SetTimer(rocketCD);
         GameObject rocket = Instantiate(rocketPrefab, rocketFiringPt.position, rocketFiringPt.rotation);
@@ -168,10 +173,16 @@ public class Player : MonoBehaviour
         if (Input.GetKey(controlMap.left))
         {
             rb2D.velocity = -(Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
+            animator.SetTrigger("Run");
         }
         else if (Input.GetKey(controlMap.right))
         {
             rb2D.velocity = (Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
+            animator.SetTrigger("Run");
+        }
+        else if(IsOnGround())
+        {
+            animator.SetTrigger("Idle");
         }
 
         if (!Input.GetKey(controlMap.left) && !Input.GetKey(controlMap.right))
