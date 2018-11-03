@@ -197,6 +197,8 @@ public class GameManager : MonoBehaviour
 
         player1.gameObject.transform.position = currArea.spn1.position;
         player2.gameObject.transform.position = currArea.spn2.position;
+        yield return new WaitForSeconds(3);
+        // Play lightning animation
         player1.gameObject.SetActive(true);
         player2.gameObject.SetActive(true);
 

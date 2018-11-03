@@ -91,14 +91,14 @@ public class Player : MonoBehaviour
 
     private void MeleeAtt()
     {
-        if (!GameManager.instance.EnemyInRange(meleeRange))
-            return;
-
         if (!gunNextCD.TimeIsUp)
             return;
 
         animator.SetTrigger("Punch");
 
+        if (!GameManager.instance.EnemyInRange(meleeRange))
+            return;
+        
         meleeNextCD.SetTimer(meleeCD);
         Vector2 moveDir;
 
@@ -173,16 +173,17 @@ public class Player : MonoBehaviour
         if (Input.GetKey(controlMap.left))
         {
             rb2D.velocity = -(Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
-            animator.SetTrigger("Run");
+            animator.SetInteger("Speed", 1);
         }
         else if (Input.GetKey(controlMap.right))
         {
             rb2D.velocity = (Vector2)Vector3.right * moveSpd + new Vector2(0, rb2D.velocity.y);
-            animator.SetTrigger("Run");
+            animator.SetInteger("Speed", 1);
         }
-        else if(IsOnGround())
+
+        if (IsOnGround() && !Input.GetKey(controlMap.left) && !Input.GetKey(controlMap.right))
         {
-            animator.SetTrigger("Idle");
+            animator.SetInteger("Speed", 0);
         }
 
         if (!Input.GetKey(controlMap.left) && !Input.GetKey(controlMap.right))
@@ -193,6 +194,7 @@ public class Player : MonoBehaviour
         if (IsOnGround() && Input.GetKeyDown(controlMap.jump))
         {
             rb2D.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetTrigger("Jump");
         }
     }
 
