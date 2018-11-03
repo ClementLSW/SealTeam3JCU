@@ -14,26 +14,31 @@ public class SFXManager : MonoBehaviour
     public enum Sound { MAINBGM, TITLEBGM, DEATH, START, GUNSHOT, PICKUP, IMPACT};
 
     public static SFXManager instance;
-    private AudioSource aSource;
+    [SerializeField] private AudioSource bgmSource;
+    [SerializeField] private AudioSource sfxSource;
 
-    private void Start()
+    public void PlayBgm(Sound sound)
     {
-        aSource = GetComponent<AudioSource>();
+        switch (sound)
+        {
+            case Sound.MAINBGM:
+                bgmSource.clip = mainbgm;
+                break;
+
+            case Sound.TITLEBGM:
+                bgmSource.clip = titlebgm;
+                break;
+        }
+
+        bgmSource.loop = true;
+        bgmSource.Play();
     }
 
     public void PlaySound(Sound sound, bool loop)
     {
-        AudioClip clipToUse = mainbgm;
+        AudioClip clipToUse = start;
         switch (sound)
         {
-            case Sound.MAINBGM:
-                clipToUse = mainbgm;
-                break;
-
-            case Sound.TITLEBGM:
-                clipToUse = titlebgm;
-                break;
-
             case Sound.DEATH:
                 clipToUse = death;
                 break;
@@ -54,8 +59,8 @@ public class SFXManager : MonoBehaviour
                 clipToUse = impact;
                 break;
         }
-        aSource.loop = loop;
-        aSource.clip = clipToUse;
-        aSource.Play();
+        sfxSource.loop = loop;
+        sfxSource.clip = clipToUse;
+        sfxSource.Play();
     }
 }
