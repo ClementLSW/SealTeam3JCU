@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private GameObject effect;
+
     private Collider2D coll;
     protected Rigidbody2D rb;
 
@@ -29,6 +31,7 @@ public class Projectile : MonoBehaviour
             moveDir.Normalize();
             collision.gameObject.GetComponent<Player>().TakeDamage(moveDir, weaponPower);
         }
+        Instantiate(effect, transform.parent);
         Destroy(gameObject);
     }
 }

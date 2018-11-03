@@ -129,6 +129,8 @@ public class Player : MonoBehaviour
         else
             moveDir = Vector2.right;
 
+        SFXManager.instance.PlaySound(SFXManager.Sound.IMPACT, false);
+
         GameManager.instance.GetEnemy(this).TakeDamage(moveDir, meleePower);
         CameraController.instance.Shake(0.1f, 0.1f);
     }
@@ -144,6 +146,8 @@ public class Player : MonoBehaviour
         Vector2 dir = Vector2.right;
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
+
+        SFXManager.instance.PlaySound(SFXManager.Sound.GUNSHOT, false);
 
         bullet.GetComponent<Projectile>().SetupProjectile(gunPower);
         bullet.GetComponent<Rigidbody2D>().AddForce(dir * bulletSpd, ForceMode2D.Impulse);
@@ -163,6 +167,8 @@ public class Player : MonoBehaviour
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
 
+        SFXManager.instance.PlaySound(SFXManager.Sound.ROCKETFIRE, false);
+
         rocket.GetComponent<HormingRocket>().SetupProjectile(rocketPower);
         rocket.GetComponent<HormingRocket>().SetupHormingRocket(
             GameManager.instance.GetEnemy(this).gameObject.transform,
@@ -175,12 +181,12 @@ public class Player : MonoBehaviour
     {
         float localYScalePositive = Mathf.Abs(transform.localScale.x);
 
-        if (forcedFaceDir == FaceDir.LEFT || rb2D.velocity.x < 0)
+        if (forcedFaceDir == FaceDir.LEFT || (rb2D && rb2D.velocity.x < 0))
         {
             currFaceDir = FaceDir.LEFT;
             transform.localScale = new Vector2(-localYScalePositive, localYScalePositive);
         }
-        else if (forcedFaceDir == FaceDir.RIGHT || rb2D.velocity.x > 0)
+        else if (forcedFaceDir == FaceDir.RIGHT || (rb2D && rb2D.velocity.x > 0))
         {
             currFaceDir = FaceDir.RIGHT;
             transform.localScale = new Vector2(localYScalePositive, localYScalePositive);
@@ -250,8 +256,10 @@ public class Player : MonoBehaviour
 
     protected bool IsOnGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLen, 1 << LayerMask.NameToLayer("Ground"));
-        return hit.collider;
+        RaycastHit2D hitBottom = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLen, 1 << LayerMask.NameToLayer("Ground"));
+        //RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
+        //RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
+        return hitBottom.collider;// || hitLeft || hitRight;
     }
 
     public void ConfigurePlayer(ControlMap controlMap, Color arrowColor, string playerName)
@@ -282,9 +290,10 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.GetComponent<Platform>())
         {
             collision.gameObject.GetComponent<Platform>().registerDamage(1);
+            SFXManager.instance.PlayBgm(SFXManager.Sound.DEATH);
         }
     }
 
@@ -318,6 +327,7 @@ public class Player : MonoBehaviour
                 default:
                     break;
             }
+            SFXManager.instance.PlaySound(SFXManager.Sound.PICKUP, false);
             powerup.Pickuped();
         }
     }
