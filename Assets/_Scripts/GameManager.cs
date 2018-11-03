@@ -40,11 +40,12 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI player1KnockbackTxt;
     [SerializeField] private TextMeshProUGUI player2KnockbackTxt;
-    [SerializeField] private TextMeshProUGUI player1LivesTxt;
-    [SerializeField] private TextMeshProUGUI player2LivesTxt;
+    [SerializeField] private Transform player1LivesPos;
+    [SerializeField] private Transform player2LivesPos;
     [SerializeField] private TextMeshProUGUI gameOverlayText;
     [SerializeField] private TextMeshProUGUI locationText;
     [SerializeField] private Image globalPUPopup;
+    [SerializeField] private GameObject heart_prefab;
     private Timer gameCDTimer = new Timer();
 
     [Header("Sprites")]
@@ -76,6 +77,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        SFXManager.instance.PlayBgm(SFXManager.Sound.TITLEBGM);
     }
 
     private void Update()
@@ -87,11 +90,6 @@ public class GameManager : MonoBehaviour
 
         player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
         player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
-
-        player1LivesTxt.text = "Lives:" + player1Lives.ToString();
-        player2LivesTxt.text = "Lives:" + player2Lives.ToString();
-
-        SpawnPowerup();
     }
 
     public void Setup()
@@ -112,10 +110,11 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
+        SFXManager.instance.PlayBgm(SFXManager.Sound.MAINBGM);
         gameOverlayText.text = "BEGIN";
         yield return new WaitForSeconds(1);
         gameOverlayText.text = "";
-        // Enable controls
+        SpawnPowerup();
     }
 
     private void SetRandArea()
