@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -235,6 +236,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RunEndGameSequence()
     {
+        yield return new WaitForSecondsRealtime(0.5f);
         gameOverlayText.text = "GAME SET";
         yield return new WaitForSecondsRealtime(1);
         gameOverlayText.text = "";
@@ -268,6 +270,8 @@ public class GameManager : MonoBehaviour
         gameOverlayText.text = "PLAYER " + playerNo + " WIN";
         yield return new WaitForSecondsRealtime(0.1f);
         gameOverlayText.text = "PLAYER " + playerNo + " WINS";
+        yield return new WaitForSecondsRealtime(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
     }
 
     private IEnumerator SendPlayerToSpawn(Player sourcePlayer)

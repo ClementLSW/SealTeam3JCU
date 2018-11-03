@@ -20,6 +20,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float camZoomMultiplyer = 1f;
     [SerializeField] private float minZoom = 5f;
 
+    private Timer camShakeEnd = new Timer();
+    private float camShakeMagnitude = 0;
+
     private void Start()
     {
         if (instance)
@@ -30,7 +33,7 @@ public class CameraController : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (playersToTrack.Count == 2)
             TrackPlayers();
@@ -73,5 +76,19 @@ public class CameraController : MonoBehaviour
         cam.orthographicSize = dist * camZoomMultiplyer;
         if (cam.orthographicSize < minZoom)
             cam.orthographicSize = minZoom;
+
+        if(!camShakeEnd.TimeIsUp)
+        {
+            float x = Random.Range(-1f, 1f) * camShakeMagnitude;
+            float y = Random.Range(-1f, 1f) * camShakeMagnitude;
+
+            transform.Translate(x, y, 0);
+        }
+    }
+
+    public void Shake(float duration, float magnitude)
+    {
+        camShakeEnd.SetTimer(duration);
+        camShakeMagnitude = magnitude;
     }
 }

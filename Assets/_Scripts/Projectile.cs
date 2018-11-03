@@ -29,7 +29,6 @@ public class Projectile : MonoBehaviour
             moveDir.Normalize();
             collision.gameObject.GetComponent<Player>().TakeDamage(moveDir, weaponPower);
         }
-
         Destroy(gameObject);
     }
 }

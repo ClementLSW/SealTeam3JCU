@@ -28,4 +28,10 @@ public class HormingRocket : Projectile
         rb.angularVelocity = -rotateAmt * steerSpd;
         rb.velocity = transform.up * flySpd;
     }
+
+    protected new void OnCollisionEnter2D(Collision2D collider)
+    {
+        CameraController.instance.Shake(0.3f, 0.3f);
+        base.OnCollisionEnter2D(collider);
+    }
 }

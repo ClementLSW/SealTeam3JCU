@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
             moveDir = Vector2.right;
 
         GameManager.instance.GetEnemy(this).TakeDamage(moveDir, meleePower);
+        CameraController.instance.Shake(0.1f, 0.1f);
     }
 
     private void GunShoot()
@@ -196,7 +197,7 @@ public class Player : MonoBehaviour
         arrowImg.color = arrowColor;
         playerNameTxt.text = playerName;
 
-        Destroy(playerNameTxt, 5);
+        Destroy(playerNameTxt, 3);
     }
 
     public void TakeDamage(Vector2 pushbackDir, float weaponPower)
@@ -221,6 +222,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Border"))
         {
             GameManager.instance.RegisterBorderCollision(this);
+            CameraController.instance.Shake(1f, 0.2f);
             currKnockbackForce = 0;
         }
 
