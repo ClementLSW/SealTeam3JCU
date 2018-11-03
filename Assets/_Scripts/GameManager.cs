@@ -89,8 +89,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
-        player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
+        player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce * 10 + "%";
+        player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce * 10 + "%";
     }
 
     public void Setup()
@@ -250,8 +250,7 @@ public class GameManager : MonoBehaviour
             player2Lives -= 1;
             Destroy(player2Hearts[player2Lives]);
         }
-
-
+        
         if (player1Lives == 0 || player2Lives == 0)
         {
             Time.timeScale = 0;

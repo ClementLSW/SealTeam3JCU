@@ -11,6 +11,8 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private AudioClip gunshot;
     [SerializeField] private AudioClip pickup;
     [SerializeField] private AudioClip impact;
+    [SerializeField] private AudioClip gameOver;
+    [SerializeField] private AudioClip rocketFire;
     public enum Sound { MAINBGM, TITLEBGM, DEATH, START, GUNSHOT, PICKUP, IMPACT, ROCKET, GAMEOVER};
 
     public static SFXManager instance;
@@ -64,6 +66,14 @@ public class SFXManager : MonoBehaviour
 
             case Sound.IMPACT:
                 clipToUse = impact;
+                break;
+
+            case Sound.GAMEOVER:
+                clipToUse = gameOver;
+                break;
+
+            case Sound.ROCKET:
+                clipToUse = rocketFire;
                 break;
         }
         sfxSource.loop = loop;

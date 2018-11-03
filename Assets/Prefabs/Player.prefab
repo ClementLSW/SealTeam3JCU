@@ -475,15 +475,15 @@ MonoBehaviour:
   gunPower: 0.3
   bulletPrefab: {fileID: 1782866162845518, guid: 056818dd8d62a96458055a6a1ccf63bd,
     type: 2}
-  bulletSpd: 10
-  gunCD: 0.5
+  bulletSpd: 15
+  gunCD: 0.25
   gunPowerupDuration: 10
   rocketFiringPt: {fileID: 4788622980094374}
   rocketPower: 1.5
   rocketPrefab: {fileID: 1351857094960980, guid: 91f0a9354adb4e04884ed0dd905669a8,
     type: 2}
-  rocketSpd: 10
-  rocketCD: 2
+  rocketSpd: 15
+  rocketCD: 0.5
   rocketSteerSpd: 300
   rocketPowerupDuration: 10
   arrowImg: {fileID: 114365987527649124}

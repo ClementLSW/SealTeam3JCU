@@ -240,7 +240,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.GetComponent<Platform>())
         {
             collision.gameObject.GetComponent<Platform>().registerDamage(1);
             SFXManager.instance.PlayBgm(SFXManager.Sound.DEATH);
