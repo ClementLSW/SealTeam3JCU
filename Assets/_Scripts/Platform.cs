@@ -12,6 +12,7 @@ public class Platform : MonoBehaviour {
     private void Start()
     {
         hitPoints = 4;
+        
     }
 
     public void registerDamage(int dmg)
@@ -24,10 +25,14 @@ public class Platform : MonoBehaviour {
     {
         if (hitPoints <= 0)
         {
-            ParticleSystem fx = Instantiate(explode, transform);
-            fx.transform.parent = null;
-            fx.transform.localScale = new Vector3(1, 1, 1);
-            Destroy(gameObject);
+            //ParticleSystem fx = Instantiate(explode, this.gameObject.transform, false);
+            //fx.transform.parent = null;
+            //fx.transform.localScale = new Vector3(1, 1, 1);
+            gameObject.AddComponent<Rigidbody2D>();
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 5;
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 10);
+            Destroy(gameObject.GetComponent<EdgeCollider2D>());
+            Destroy(gameObject, 3.0f);
         }
         else if(hitPoints <= 2)
         {
