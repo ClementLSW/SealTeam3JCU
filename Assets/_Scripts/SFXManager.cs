@@ -17,6 +17,12 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
 
+    private void Start()
+    {
+        bgmSource = gameObject.AddComponent<AudioSource>();
+        sfxSource = gameObject.AddComponent<AudioSource>();
+    }
+
     public void PlayBgm(Sound sound)
     {
         switch (sound)
