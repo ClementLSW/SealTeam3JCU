@@ -221,6 +221,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Border"))
         {
             GameManager.instance.RegisterBorderCollision(this);
+            currKnockbackForce = 0;
         }
 
         if(collision.gameObject.tag == "Powerup")
@@ -229,12 +230,15 @@ public class Player : MonoBehaviour
             switch (powerup.powerupType)
             {
                 case Powerup.PowerupType.GLOBAL:
+                    Debug.Log("Get GLOBAL");
                     GameManager.instance.PowerupCollected(Powerup.PowerupType.GLOBAL);
                     break;
                 case Powerup.PowerupType.PERSONAL:
+                    Debug.Log("Get PERSONAL");
                     StartCoroutine(SwitchWeaponTemp());
                     break;
                 case Powerup.PowerupType.TELEPORT:
+                    Debug.Log("Get TELEPORT");
                     GameManager.instance.PowerupCollected(Powerup.PowerupType.TELEPORT);
                     break;
                 default:
@@ -246,7 +250,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator TempFiringRateModification()
     {
-        ToggleGlobalPowerupAnim(true);
+        SetGlobalPowerupAnim(true);
         float origMeleeCD = meleeCD;
         float origGunCD = gunCD;
         float origRocketCD = rocketCD;
@@ -255,7 +259,7 @@ public class Player : MonoBehaviour
         gunCD *= 2;
         rocketCD *= 2;
         yield return new WaitForSeconds(10);
-        ToggleGlobalPowerupAnim(false);
+        SetGlobalPowerupAnim(false);
 
         meleeCD = origMeleeCD;
         gunCD = origGunCD;
@@ -264,21 +268,21 @@ public class Player : MonoBehaviour
 
     public IEnumerator TempKnockbackModification()
     {
-        ToggleGlobalPowerupAnim(true);
+        SetGlobalPowerupAnim(true);
         float origKnockbackMultiplyer = knockbackMultiplyer;
         origKnockbackMultiplyer *= 2;
         yield return new WaitForSeconds(10);
-        ToggleGlobalPowerupAnim(false);
+        SetGlobalPowerupAnim(false);
         knockbackMultiplyer = origKnockbackMultiplyer;
     }
 
     public IEnumerator TempSpeedModification()
     {
-        ToggleGlobalPowerupAnim(true);
+        SetGlobalPowerupAnim(true);
         float origSpd = moveSpd;
         moveSpd *= 2;
         yield return new WaitForSeconds(10);
-        ToggleGlobalPowerupAnim(false);
+        SetGlobalPowerupAnim(false);
         moveSpd = origSpd;
     }
 
@@ -302,9 +306,10 @@ public class Player : MonoBehaviour
         currWeapon = WeaponType.MELEE;
     }
 
-    private void ToggleGlobalPowerupAnim(bool state)
+    private void SetGlobalPowerupAnim(bool state)
     {
-        globalPU.SetActive(state);
+        Debug.Log("globalPU SetActive " + state);
+        globalPU.gameObject.SetActive(state);
     }
 
     public void ResetCurrentKnockback()

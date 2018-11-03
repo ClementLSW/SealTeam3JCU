@@ -24,7 +24,7 @@ public class Powerup : MonoBehaviour
 
     private void Setup()
     {
-        switch (Random.Range(0,2))
+        switch (Random.Range(0,3))
         {
             case 0:
                 img.sprite = global;

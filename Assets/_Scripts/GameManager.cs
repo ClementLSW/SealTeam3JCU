@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,9 +42,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player1LivesTxt;
     [SerializeField] private TextMeshProUGUI player2LivesTxt;
     [SerializeField] private TextMeshProUGUI gameOverlayText;
+    [SerializeField] private Image globalPUPopup;
     private Timer gameCDTimer = new Timer();
 
-    [Space(10)]
+    [Header("Sprites")]
+    [SerializeField] private Sprite knockBackPowerupIconSprite;
+    [SerializeField] private Sprite spdPUIconSprite;
+    [SerializeField] private Sprite firingPUIconSprite;
 
     [SerializeField] private List<ControlMap> controlMaps = new List<ControlMap>();
 
@@ -134,16 +139,22 @@ public class GameManager : MonoBehaviour
                 switch(Random.Range(0, 3))
                 {
                     case 0:
-                        player1.TempKnockbackModification();
-                        player2.TempKnockbackModification();
+                        Debug.Log("TempKnockbackModification");
+                        StartCoroutine(player1.TempKnockbackModification());
+                        StartCoroutine(player2.TempKnockbackModification());
+                        StartCoroutine(ShowGlobalPU(knockBackPowerupIconSprite)); 
                         break;
                     case 1:
-                        player1.TempSpeedModification();
-                        player2.TempSpeedModification();
+                        Debug.Log("TempSpeedModification");
+                        StartCoroutine(player1.TempSpeedModification());
+                        StartCoroutine(player2.TempSpeedModification());
+                        StartCoroutine(ShowGlobalPU(spdPUIconSprite));
                         break;
                     case 2:
-                        player1.TempKnockbackModification();
-                        player2.TempKnockbackModification();
+                        Debug.Log("TempFiringRateModification");
+                        StartCoroutine(player1.TempFiringRateModification());
+                        StartCoroutine(player2.TempFiringRateModification());
+                        StartCoroutine(ShowGlobalPU(firingPUIconSprite));
                         break;
                 }
                 break;
@@ -226,6 +237,15 @@ public class GameManager : MonoBehaviour
             return player2;
         else
             return player1;
+    }
+
+    public IEnumerator ShowGlobalPU(Sprite sprite)
+    {
+        globalPUPopup.gameObject.SetActive(true);
+        if (sprite)
+            globalPUPopup.sprite = sprite;
+        yield return new WaitForSeconds(1.5f);
+        globalPUPopup.gameObject.SetActive(false);
     }
 }
 
