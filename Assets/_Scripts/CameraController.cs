@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (playersToTrack[0] != null && playersToTrack[1] != null)
+        if (playersToTrack.Count == 2)
             TrackPlayers();
     }
 

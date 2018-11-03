@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -45,11 +47,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float rocketPowerupDuration = 10f;
     private Timer rocketNextCD = new Timer();
 
-    private Timer controlsUnlockTime = new Timer();
+    public Timer controlsUnlockTime = new Timer();
     private float controlsLockDuration = 1f;
 
     public enum FaceDir {NULL, LEFT, RIGHT };
     protected FaceDir currFaceDir = FaceDir.RIGHT;
+
+    [Space(10)]
+
+    [SerializeField] private Image arrowImg;
+    [SerializeField] private TextMeshProUGUI playerNameTxt;
+
+    [Space(10)]
+    [SerializeField] private GameObject globalPU;
 
     protected void Start()
     {
@@ -180,9 +190,13 @@ public class Player : MonoBehaviour
         return hit.collider;
     }
 
-    public void ConfigurePlayer(ControlMap controlMap)
+    public void ConfigurePlayer(ControlMap controlMap, Color arrowColor, string playerName)
     {
         this.controlMap = controlMap;
+        arrowImg.color = arrowColor;
+        playerNameTxt.text = playerName;
+
+        Destroy(playerNameTxt, 5);
     }
 
     public void TakeDamage(Vector2 pushbackDir, float weaponPower)
@@ -207,6 +221,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Border"))
         {
             GameManager.instance.RegisterBorderCollision(this);
+            currKnockbackForce = 0;
         }
 
         if(collision.gameObject.tag == "Powerup")
@@ -215,13 +230,16 @@ public class Player : MonoBehaviour
             switch (powerup.powerupType)
             {
                 case Powerup.PowerupType.GLOBAL:
-                    StartCoroutine(SwitchWeaponTemp());
+                    Debug.Log("Get GLOBAL");
+                    GameManager.instance.PowerupCollected(Powerup.PowerupType.GLOBAL);
                     break;
                 case Powerup.PowerupType.PERSONAL:
+                    Debug.Log("Get PERSONAL");
                     StartCoroutine(SwitchWeaponTemp());
                     break;
                 case Powerup.PowerupType.TELEPORT:
-                    StartCoroutine(SwitchWeaponTemp());
+                    Debug.Log("Get TELEPORT");
+                    GameManager.instance.PowerupCollected(Powerup.PowerupType.TELEPORT);
                     break;
                 default:
                     break;
@@ -230,9 +248,47 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator SwitchWeaponTemp()
+    public IEnumerator TempFiringRateModification()
     {
-        int weaponType = Random.Range(0, 1);
+        SetGlobalPowerupAnim(true);
+        float origMeleeCD = meleeCD;
+        float origGunCD = gunCD;
+        float origRocketCD = rocketCD;
+
+        meleeCD *= 2;
+        gunCD *= 2;
+        rocketCD *= 2;
+        yield return new WaitForSeconds(10);
+        SetGlobalPowerupAnim(false);
+
+        meleeCD = origMeleeCD;
+        gunCD = origGunCD;
+        rocketCD = origRocketCD;
+    }
+
+    public IEnumerator TempKnockbackModification()
+    {
+        SetGlobalPowerupAnim(true);
+        float origKnockbackMultiplyer = knockbackMultiplyer;
+        origKnockbackMultiplyer *= 2;
+        yield return new WaitForSeconds(10);
+        SetGlobalPowerupAnim(false);
+        knockbackMultiplyer = origKnockbackMultiplyer;
+    }
+
+    public IEnumerator TempSpeedModification()
+    {
+        SetGlobalPowerupAnim(true);
+        float origSpd = moveSpd;
+        moveSpd *= 2;
+        yield return new WaitForSeconds(10);
+        SetGlobalPowerupAnim(false);
+        moveSpd = origSpd;
+    }
+
+    public IEnumerator SwitchWeaponTemp()
+    {
+        int weaponType = Random.Range(0, 2);
         float weaponDuration = 0;
         if (weaponType == 0)
         {
@@ -244,8 +300,16 @@ public class Player : MonoBehaviour
             currWeapon = WeaponType.ROCKET;
             weaponDuration = rocketPowerupDuration;
         }
+        Debug.Log("Set Weapon CD to " + weaponDuration);
         yield return new WaitForSeconds(weaponDuration);
+        Debug.Log("CD Fin");
         currWeapon = WeaponType.MELEE;
+    }
+
+    private void SetGlobalPowerupAnim(bool state)
+    {
+        Debug.Log("globalPU SetActive " + state);
+        globalPU.gameObject.SetActive(state);
     }
 
     public void ResetCurrentKnockback()

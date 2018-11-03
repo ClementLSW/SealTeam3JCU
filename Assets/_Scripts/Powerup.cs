@@ -12,8 +12,9 @@ public class Powerup : MonoBehaviour
     [SerializeField] private Sprite personal;
     [SerializeField] private Sprite teleport;
 
-    public enum PowerupType { GLOBAL, PERSONAL, TELEPORT };
-    public PowerupType powerupType = PowerupType.GLOBAL;
+    public enum PowerupType { NULL, GLOBAL, PERSONAL, TELEPORT };
+    public PowerupType powerupType = PowerupType.NULL;
+    public enum GlobalPowerupType { SPEED, KNOCKBACK, FIRERATE }
 
     private void Start()
     {
@@ -23,16 +24,19 @@ public class Powerup : MonoBehaviour
 
     private void Setup()
     {
-        switch (powerupType)
+        switch (Random.Range(0,3))
         {
-            case PowerupType.GLOBAL:
+            case 0:
                 img.sprite = global;
+                powerupType = PowerupType.GLOBAL;
                 break;
-            case PowerupType.PERSONAL:
+            case 1:
                 img.sprite = personal;
+                powerupType = PowerupType.PERSONAL;
                 break;
-            case PowerupType.TELEPORT:
+            case 2:
                 img.sprite = teleport;
+                powerupType = PowerupType.TELEPORT;
                 break;
         }
     }
@@ -40,7 +44,7 @@ public class Powerup : MonoBehaviour
     public void Pickuped()
     {
         // TODO: Play animation
-        GameManager.instance.PowerupCollected();
+        GameManager.instance.PowerupCollected(powerupType);
         Destroy(gameObject);
     }
 }

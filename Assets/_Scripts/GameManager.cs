@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,8 +41,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player2KnockbackTxt;
     [SerializeField] private TextMeshProUGUI player1LivesTxt;
     [SerializeField] private TextMeshProUGUI player2LivesTxt;
+    [SerializeField] private TextMeshProUGUI gameOverlayText;
+    [SerializeField] private Image globalPUPopup;
+    private Timer gameCDTimer = new Timer();
 
-    [Space(10)]
+    [Header("Sprites")]
+    [SerializeField] private Sprite knockBackPowerupIconSprite;
+    [SerializeField] private Sprite spdPUIconSprite;
+    [SerializeField] private Sprite firingPUIconSprite;
 
     [SerializeField] private List<ControlMap> controlMaps = new List<ControlMap>();
 
@@ -52,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     private Player player1;
     private Player player2;
+    private bool setupDone = false;
 
     [Header("Total Health")]
     [SerializeField] private int player1Lives = 5;
@@ -63,28 +71,59 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-
-        SpawnPlayers();
-        SpawnPowerup();
     }
 
     private void Update()
     {
+        if (!setupDone)
+        {
+            return;
+        }
+
         player1KnockbackTxt.text = "Knockback:" + player1.currKnockbackForce.ToString();
         player2KnockbackTxt.text = "Knockback:" + player2.currKnockbackForce.ToString();
 
         player1LivesTxt.text = "Lives:" + player1Lives.ToString();
         player2LivesTxt.text = "Lives:" + player2Lives.ToString();
+
+        SpawnPowerup();
+    }
+
+    public void Setup()
+    {
+        SpawnPlayers();
+        player1.controlsUnlockTime.SetTimer(3);
+        player2.controlsUnlockTime.SetTimer(3);
+        gameCDTimer.SetTimer(3);
+        StartCoroutine(CountDownGameStart());
+        setupDone = true;
+    }
+
+    private IEnumerator CountDownGameStart()
+    {
+        while(!gameCDTimer.TimeIsUp)
+        {
+            gameOverlayText.text = ((int)gameCDTimer.TimeLeft + 1).ToString();
+            yield return null;
+        }
+
+        gameOverlayText.text = "BEGIN";
+        yield return new WaitForSeconds(1);
+        gameOverlayText.text = "";
+        // Enable controls
     }
 
     private void SetRandArea()
     {
-        currArea = area[Random.Range(0, area.Count - 1)];
+        if (currArea != null)
+            currArea = area[(area.IndexOf(currArea) + 1) % area.Count];
+        else
+            currArea = area[0];
     }
 
     private void SpawnPowerup()
     {
-        if(powerupSpnTimer.TimeIsUp && powerupCollected)
+        if (powerupSpnTimer.TimeIsUp && powerupCollected)
         {
             powerupSpnTimer.SetTimer(powerupSpawnFreq);
             Instantiate(powerup_Prefab, currArea.GetRandPowerupSpn().position, Quaternion.identity);
@@ -92,10 +131,61 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PowerupCollected()
+    public void PowerupCollected(Powerup.PowerupType powerup)
     {
-        Debug.Log("Powerup Collecte");
+        switch (powerup)
+        {
+            case Powerup.PowerupType.GLOBAL:
+                switch(Random.Range(0, 3))
+                {
+                    case 0:
+                        Debug.Log("TempKnockbackModification");
+                        StartCoroutine(player1.TempKnockbackModification());
+                        StartCoroutine(player2.TempKnockbackModification());
+                        StartCoroutine(ShowGlobalPU(knockBackPowerupIconSprite)); 
+                        break;
+                    case 1:
+                        Debug.Log("TempSpeedModification");
+                        StartCoroutine(player1.TempSpeedModification());
+                        StartCoroutine(player2.TempSpeedModification());
+                        StartCoroutine(ShowGlobalPU(spdPUIconSprite));
+                        break;
+                    case 2:
+                        Debug.Log("TempFiringRateModification");
+                        StartCoroutine(player1.TempFiringRateModification());
+                        StartCoroutine(player2.TempFiringRateModification());
+                        StartCoroutine(ShowGlobalPU(firingPUIconSprite));
+                        break;
+                }
+                break;
+            case Powerup.PowerupType.TELEPORT:
+                StartCoroutine(ChangeArea());
+                ChangeArea();
+                break;
+            default:
+                break;
+        }
+
         powerupCollected = true;
+    }
+
+    private IEnumerator ChangeArea()
+    {
+        player1.gameObject.SetActive(false);
+        player2.gameObject.SetActive(false);
+        SetRandArea();
+        // Play lightning animation
+        yield return new WaitForSeconds(2);
+        player1.gameObject.transform.position = currArea.spn1.position;
+        player2.gameObject.transform.position = currArea.spn2.position;
+        player1.gameObject.SetActive(true);
+        player2.gameObject.SetActive(true);
+
+        foreach (Powerup powerup in FindObjectsOfType<Powerup>())
+        {
+            Destroy(powerup.gameObject);
+            powerupCollected = false;
+        }
     }
 
     private void SpawnPlayers()
@@ -104,12 +194,12 @@ public class GameManager : MonoBehaviour
 
         // Spawn player1
         player1 = Instantiate(playerPrefab, currArea.spn1.position, currArea.spn1.rotation).GetComponent<Player>();
-        player1.ConfigurePlayer(controlMaps[0]);
+        player1.ConfigurePlayer(controlMaps[0], Color.red, "Player1");
         player1.name = "Player1";
 
          // Spawn player2
         player2 = Instantiate(playerPrefab, currArea.spn2.position, currArea.spn2.rotation).GetComponent<Player>();
-        player2.ConfigurePlayer(controlMaps[1]);
+        player2.ConfigurePlayer(controlMaps[1], Color.blue, "Player2");
         player2.GetComponent<Player>().SetFaceDir(Player.FaceDir.LEFT);
         player2.name = "Player2";
 
@@ -147,6 +237,15 @@ public class GameManager : MonoBehaviour
             return player2;
         else
             return player1;
+    }
+
+    public IEnumerator ShowGlobalPU(Sprite sprite)
+    {
+        globalPUPopup.gameObject.SetActive(true);
+        if (sprite)
+            globalPUPopup.sprite = sprite;
+        yield return new WaitForSeconds(1.5f);
+        globalPUPopup.gameObject.SetActive(false);
     }
 }
 
