@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 50863966140389904}
   - component: {fileID: 114784841881593104}
   - component: {fileID: 61822180675670960}
-  - component: {fileID: 70621500754970302}
+  - component: {fileID: 61550755063891956}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -222,6 +222,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!61 &61550755063891956
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1824364655590424}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.45}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.72, y: 3.05}
+  m_EdgeRadius: 0
 --- !u!61 &61822180675670960
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -247,21 +272,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!70 &70621500754970302
-CapsuleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824364655590424}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.23}
-  m_Size: {x: 1.91, y: 3.24}
-  m_Direction: 0
 --- !u!95 &95326285284566248
 Animator:
   serializedVersion: 3
@@ -292,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -326,7 +336,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 321ec03d44fa3af498871734536f8cf4, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -475,15 +485,15 @@ MonoBehaviour:
   gunPower: 0.3
   bulletPrefab: {fileID: 1782866162845518, guid: 056818dd8d62a96458055a6a1ccf63bd,
     type: 2}
-  bulletSpd: 15
-  gunCD: 0.25
+  bulletSpd: 10
+  gunCD: 0.5
   gunPowerupDuration: 10
   rocketFiringPt: {fileID: 4788622980094374}
   rocketPower: 1.5
   rocketPrefab: {fileID: 1351857094960980, guid: 91f0a9354adb4e04884ed0dd905669a8,
     type: 2}
-  rocketSpd: 15
-  rocketCD: 0.5
+  rocketSpd: 10
+  rocketCD: 2
   rocketSteerSpd: 300
   rocketPowerupDuration: 10
   arrowImg: {fileID: 114365987527649124}

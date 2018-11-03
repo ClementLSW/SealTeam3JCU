@@ -6,13 +6,14 @@ using UnityEngine.U2D;
 public class Platform : MonoBehaviour
 {
 
-    private int hitPoints;
+    [SerializeField] private int hitPoints;
     [SerializeField] private ParticleSystem explode;
     [SerializeField] private SpriteShape damagedSprite;
 
     private void Start()
     {
-        hitPoints = 10;
+        hitPoints = 4;
+
     }
 
     public void registerDamage(int dmg)
@@ -34,7 +35,7 @@ public class Platform : MonoBehaviour
             Destroy(gameObject.GetComponent<EdgeCollider2D>());
             Destroy(gameObject, 3.0f);
         }
-        else if (hitPoints <= 5)
+        else if (hitPoints <= 2)
         {
             gameObject.GetComponent<SpriteShapeController>().spriteShape = damagedSprite;
         }

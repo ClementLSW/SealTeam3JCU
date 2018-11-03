@@ -32,12 +32,6 @@ public class HormingRocket : Projectile
     protected new void OnCollisionEnter2D(Collision2D collider)
     {
         CameraController.instance.Shake(0.3f, 0.3f);
-
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Ground") && collider.gameObject.GetComponent<Platform>())
-        {
-            collider.gameObject.GetComponent<Platform>().registerDamage(1);
-        }
-        SFXManager.instance.PlaySound(SFXManager.Sound.EXPLOSION, false);
         base.OnCollisionEnter2D(collider);
     }
 }

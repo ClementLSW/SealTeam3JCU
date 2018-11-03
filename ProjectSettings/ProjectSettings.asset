@@ -650,7 +650,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 3
+  apiCompatibilityLevel: 2
   cloudProjectId: 491e4398-e256-4ca1-83ed-62ac51c6613c
   projectName: JCU Game Jam
   organizationId: goodawz

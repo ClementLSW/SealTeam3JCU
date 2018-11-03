@@ -36,7 +36,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4216537834283118}
-  - component: {fileID: 114397239917590808}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -51,7 +50,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1935427101859336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57.298576, y: -38.00712, z: -0.2991746}
+  m_LocalPosition: {x: -6.341112, y: -0.8969994, z: -0.2991746}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4868384727631546}
@@ -65,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551123684712956}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.57, y: 0.9, z: 0.2991746}
   m_LocalScale: {x: 7.4793, y: 7.4793, z: 7.4793}
   m_Children: []
   m_Father: {fileID: 4216537834283118}
@@ -89,18 +88,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114397239917590808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1935427101859336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96270ed87b6215b46824c24df22cfb68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyAfter: 5
 --- !u!212 &212181982571402860
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,7 +124,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 817c88a102394064599404416342dde0, type: 3}
-  m_Color: {r: 0.9990444, g: 0.6179246, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
