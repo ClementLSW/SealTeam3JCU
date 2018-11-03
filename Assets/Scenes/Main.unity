@@ -2025,7 +2025,7 @@ MonoBehaviour:
   maxY: 1000000
   minY: -5000000
   camMoveSpd: 3
-  camZoomMultiplyer: 0.5
+  camZoomMultiplyer: 0.6
   minZoom: 10
 --- !u!1 &629993590
 GameObject:

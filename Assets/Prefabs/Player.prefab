@@ -469,10 +469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e8a4a0f72c6e74da2f54ef4bcdfd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95326285284566248}
+  animator: {fileID: 0}
   moveSpd: 7
   jumpForce: 15
-  groundRaycastLen: 1.3
+  groundRaycastLen: 2
   currWeapon: 0
   knockbackMultiplyer: 1
   knockbackIncrement: 1
@@ -481,14 +481,14 @@ MonoBehaviour:
   meleePower: 1
   meleeRange: 2
   meleeCD: 0.2
-  gunFiringPt: {fileID: 4091654936323630}
+  gunFiringPt: {fileID: 0}
   gunPower: 0.3
   bulletPrefab: {fileID: 1782866162845518, guid: 056818dd8d62a96458055a6a1ccf63bd,
     type: 2}
   bulletSpd: 10
   gunCD: 0.5
   gunPowerupDuration: 10
-  rocketFiringPt: {fileID: 4788622980094374}
+  rocketFiringPt: {fileID: 0}
   rocketPower: 1.5
   rocketPrefab: {fileID: 1351857094960980, guid: 91f0a9354adb4e04884ed0dd905669a8,
     type: 2}
@@ -496,9 +496,9 @@ MonoBehaviour:
   rocketCD: 2
   rocketSteerSpd: 300
   rocketPowerupDuration: 10
-  arrowImg: {fileID: 114365987527649124}
-  playerNameTxt: {fileID: 114755849710331426}
-  globalPU: {fileID: 1661928057056068}
+  arrowImg: {fileID: 0}
+  playerNameTxt: {fileID: 0}
+  globalPU: {fileID: 0}
 --- !u!114 &114841383272825624
 MonoBehaviour:
   m_ObjectHideFlags: 1
