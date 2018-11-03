@@ -9,80 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1562257515058162}
+  m_RootGameObject: {fileID: 1784390440862886}
   m_IsPrefabAsset: 1
---- !u!1 &1562257515058162
+--- !u!1 &1784390440862886
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4603633760430796}
-  - component: {fileID: 8633865683171744720}
-  - component: {fileID: 114939789354169962}
-  - component: {fileID: 68973576065124216}
-  - component: {fileID: 114191208637360628}
+  - component: {fileID: 4555270295075154}
+  - component: {fileID: 8633865682663790086}
+  - component: {fileID: 114070689062539940}
   m_Layer: 0
-  m_Name: EiffelTowerPlatformPrefab
+  m_Name: EiffelStripPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4603633760430796
+--- !u!4 &4555270295075154
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562257515058162}
+  m_GameObject: {fileID: 1784390440862886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.026621483, y: 1.0529366, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.05, y: -5.05, z: 0}
+  m_LocalScale: {x: 3.252, y: 3.252, z: 3.252}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &68973576065124216
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562257515058162}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: 2.0490196, y: 2.13}
-  - {x: -2.0530686, y: 2.13}
-  - {x: -2.0530686, y: 1.8699999}
-  - {x: 2.0530686, y: 1.8659508}
-  - {x: 2.0507956, y: 2.129483}
---- !u!114 &114191208637360628
+--- !u!114 &114070689062539940
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562257515058162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0ac1e572418a043bbb21ce604fbc95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitPoints: 4
-  explode: {fileID: 19800002, guid: 3364c97de68d3a147af572d1c71c6455, type: 2}
-  damagedSprite: {fileID: 11400000, guid: ac206a78ed7b94245a9c2aabf2ed8d78, type: 2}
---- !u!114 &114939789354169962
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562257515058162}
+  m_GameObject: {fileID: 1784390440862886}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90539df1cd5704abcb25fec9f3f5f84b, type: 3}
@@ -91,7 +55,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 1
     m_ControlPoints:
-    - position: {x: -2, y: 2, z: 0}
+    - position: {x: -2, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -100,7 +64,7 @@ MonoBehaviour:
       bevelSize: 0
       spriteIndex: 0
       corner: 0
-    - position: {x: 2, y: 2, z: 0}
+    - position: {x: 2, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -114,18 +78,18 @@ MonoBehaviour:
   m_AdaptiveUV: 1
   m_UpdateCollider: 0
   m_ColliderDetail: 4
-  m_ColliderOffset: 0.13
+  m_ColliderOffset: 0
   m_ColliderCornerType: 0
---- !u!1971053207 &8633865683171744720
+--- !u!1971053207 &8633865682663790086
 SpriteShapeRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1562257515058162}
+  m_GameObject: {fileID: 1784390440862886}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -165,5 +129,5 @@ SpriteShapeRenderer:
   - {fileID: 0}
   - {fileID: 0}
   m_LocalAABB:
-    m_Center: {x: 0, y: 2, z: 0}
-    m_Extent: {x: 2.05, y: 0.13000017, z: 0}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 2.05, y: 0.13000003, z: 0}
