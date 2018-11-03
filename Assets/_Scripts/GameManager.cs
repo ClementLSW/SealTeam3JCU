@@ -67,6 +67,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int player1Lives = 5;
     [SerializeField] private int player2Lives = 5;
 
+    [Space(10)]
+    [SerializeField] private GameObject portal_prefab;
+
     private void Start()
     {
         if (!instance)
@@ -181,9 +184,11 @@ public class GameManager : MonoBehaviour
     {
         player1.gameObject.SetActive(false);
         player2.gameObject.SetActive(false);
+        Instantiate(portal_prefab, player1.transform.position, Quaternion.identity);
+        Instantiate(portal_prefab, player2.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(1f);
         SetRandArea();
         // Play lightning animation
-        yield return new WaitForSeconds(2);
 
         switch (area.IndexOf(currArea))
         {
@@ -197,7 +202,7 @@ public class GameManager : MonoBehaviour
 
         player1.gameObject.transform.position = currArea.spn1.position;
         player2.gameObject.transform.position = currArea.spn2.position;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         // Play lightning animation
         player1.gameObject.SetActive(true);
         player2.gameObject.SetActive(true);
