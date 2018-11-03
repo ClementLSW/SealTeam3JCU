@@ -34,11 +34,11 @@ public class Platform : MonoBehaviour {
 
     //Debug Method
 
-    public void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            this.registerDamage(1);
-        }
-    }
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown("space"))
+    //    {
+    //        this.registerDamage(1);
+    //    }
+    //}
 }
