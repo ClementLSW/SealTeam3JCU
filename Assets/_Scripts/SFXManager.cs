@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class SFXManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip sound1;
-    public enum Sound { SOUND1 };
+    [SerializeField] private AudioClip mainbgm;
+    [SerializeField] private AudioClip titlebgm;
+    [SerializeField] private AudioClip death;
+    [SerializeField] private AudioClip start;
+    [SerializeField] private AudioClip gunshot;
+    [SerializeField] private AudioClip pickup;
+    [SerializeField] private AudioClip impact;
+    public enum Sound { MAINBGM, TITLEBGM, DEATH, START, GUNSHOT, PICKUP, IMPACT};
 
     public static SFXManager instance;
     private AudioSource aSource;
@@ -17,14 +23,39 @@ public class SFXManager : MonoBehaviour
 
     public void PlaySound(Sound sound, bool loop)
     {
-        AudioClip clipToUse = sound1;
+        AudioClip clipToUse = mainbgm;
         switch (sound)
         {
-            case Sound.SOUND1:
-                clipToUse = sound1;
+            case Sound.MAINBGM:
+                clipToUse = mainbgm;
+                break;
+
+            case Sound.TITLEBGM:
+                clipToUse = titlebgm;
+                break;
+
+            case Sound.DEATH:
+                clipToUse = death;
+                break;
+
+            case Sound.START:
+                clipToUse = start;
+                break;
+
+            case Sound.GUNSHOT:
+                clipToUse = gunshot;
+                break;
+
+            case Sound.PICKUP:
+                clipToUse = pickup;
+                break;
+
+            case Sound.IMPACT:
+                clipToUse = impact;
                 break;
         }
         aSource.loop = loop;
+        aSource.clip = clipToUse;
         aSource.Play();
     }
 }
