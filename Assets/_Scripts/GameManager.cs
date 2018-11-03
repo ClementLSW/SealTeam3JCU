@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player1LivesTxt;
     [SerializeField] private TextMeshProUGUI player2LivesTxt;
     [SerializeField] private TextMeshProUGUI gameOverlayText;
+    [SerializeField] private TextMeshProUGUI locationText;
     [SerializeField] private Image globalPUPopup;
     private Timer gameCDTimer = new Timer();
 
@@ -183,6 +184,17 @@ public class GameManager : MonoBehaviour
         SetRandArea();
         // Play lightning animation
         yield return new WaitForSeconds(2);
+
+        switch (area.IndexOf(currArea))
+        {
+            case 0:
+                StartCoroutine(FlashLocation("AREA 1"));
+                break;
+            case 1:
+                StartCoroutine(FlashLocation("AREA 2"));
+                break;
+        }
+
         player1.gameObject.transform.position = currArea.spn1.position;
         player2.gameObject.transform.position = currArea.spn2.position;
         player1.gameObject.SetActive(true);
@@ -271,7 +283,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         gameOverlayText.text = "PLAYER " + playerNo + " WINS";
         yield return new WaitForSecondsRealtime(2f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Main");
     }
 
     private IEnumerator SendPlayerToSpawn(Player sourcePlayer)
@@ -280,6 +293,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         sourcePlayer.gameObject.transform.position = currArea.GetRandPlayerSpn().position;
         sourcePlayer.gameObject.SetActive(true);
+        yield return null;
+    }
+
+    private IEnumerator FlashLocation(string locationName)
+    {
+        locationText.text = locationName;
+        yield return new WaitForSeconds(5f);
+        locationText.text = "";
         yield return null;
     }
 
