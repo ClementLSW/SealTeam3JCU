@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8633865682355763814}
   - component: {fileID: 114909990271541990}
   - component: {fileID: 68766185162815438}
+  - component: {fileID: 114449102066807850}
   m_Layer: 0
   m_Name: MachuPichuPlatformPrefab
   m_TagString: Untagged
@@ -62,6 +63,20 @@ EdgeCollider2D:
   - {x: -2.0076504, y: 1.8621066}
   - {x: 1.9997568, y: 1.8660533}
   - {x: 2.0037038, y: 2.133947}
+--- !u!114 &114449102066807850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1659516443909480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0ac1e572418a043bbb21ce604fbc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 0
+  explode: {fileID: 19800002, guid: 3364c97de68d3a147af572d1c71c6455, type: 2}
+  damagedSprite: {fileID: 11400000, guid: 9c4a0970a3210ca439ae92b05c9f7dee, type: 2}
 --- !u!114 &114909990271541990
 MonoBehaviour:
   m_ObjectHideFlags: 1
