@@ -13,6 +13,7 @@ public class Platform : MonoBehaviour {
     {
         hitPoints = 4;
     }
+
     public void registerDamage(int dmg)
     {
         hitPoints -= dmg;
@@ -23,13 +24,22 @@ public class Platform : MonoBehaviour {
     {
         if (hitPoints <= 0)
         {
-            Instantiate(explode);
+            ParticleSystem fx = Instantiate(explode, transform);
+            fx.transform.parent = null;
+            fx.transform.localScale = new Vector3(1, 1, 1);
             Destroy(gameObject);
         }
         else if(hitPoints <= 2)
         {
             gameObject.GetComponent<SpriteShapeController>().spriteShape = damagedSprite;
         }
+    }
+
+    [ContextMenu("Explode")]
+    public void Explode()
+    {
+        hitPoints = 0;
+        checkHP();
     }
 
     //Debug Method

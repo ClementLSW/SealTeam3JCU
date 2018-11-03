@@ -219,16 +219,24 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Border"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            collision.gameObject.GetComponent<Platform>().registerDamage(1);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.layer == LayerMask.NameToLayer("Border"))
         {
             GameManager.instance.RegisterBorderCollision(this);
             CameraController.instance.Shake(1f, 0.2f);
             currKnockbackForce = 0;
         }
 
-        if(collision.gameObject.tag == "Powerup")
+        if(coll.gameObject.tag == "Powerup")
         {
-            Powerup powerup = collision.GetComponent<Powerup>();
+            Powerup powerup = coll.gameObject.GetComponent<Powerup>();
             switch (powerup.powerupType)
             {
                 case Powerup.PowerupType.GLOBAL:
