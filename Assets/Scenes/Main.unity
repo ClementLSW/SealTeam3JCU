@@ -171,7 +171,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 11858295}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -631,7 +631,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 31369300}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1734,7 +1734,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 280873243}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3097,7 +3097,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 605774642}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -3700,7 +3700,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 722062192}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -4174,7 +4174,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 751816087}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5436,7 +5436,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 907574075}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -6633,7 +6633,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1085169268}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -8597,13 +8597,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43d90cacf9f7a540ad307537ba58d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainbgm: {fileID: 0}
-  titlebgm: {fileID: 0}
-  death: {fileID: 0}
-  start: {fileID: 0}
-  gunshot: {fileID: 0}
-  pickup: {fileID: 0}
-  impact: {fileID: 0}
+  mainbgm: {fileID: 8300000, guid: f589ddf07a05fbb4595f7ba75e1f3abf, type: 3}
+  titlebgm: {fileID: 8300000, guid: d16e1506ea78d2741956ff6bcb0bab12, type: 3}
+  death: {fileID: 8300000, guid: 9b9d3b5d2d88ebe49869691e2391c0c9, type: 3}
+  start: {fileID: 8300000, guid: 19a8ddcf5385f504e824a6b5a11fb141, type: 3}
+  gunshot: {fileID: 8300000, guid: 9c72d21f3c39b8043a0bc9e2f62e5979, type: 3}
+  pickup: {fileID: 8300000, guid: b80aa6cd182277e4c8cf828e355d90a7, type: 3}
+  impact: {fileID: 8300000, guid: 121d2f4bacb4e5547b5a0c7047b5254e, type: 3}
   bgmSource: {fileID: 0}
   sfxSource: {fileID: 0}
 --- !u!1 &1557562217
@@ -8783,6 +8783,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1929547953}
         m_MethodName: Setup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1542952553}
+        m_MethodName: PlayStartSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9498,7 +9509,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1649968596}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -9830,7 +9841,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1684644180}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -9995,7 +10006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1697186485
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10180,11 +10191,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -10700,7 +10711,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 1874867490}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -11299,7 +11310,7 @@ EdgeCollider2D:
   m_GameObject: {fileID: 2014210176}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 5eb2242829ad27d4fb8bf7a2b3b12a17, type: 2}
+  m_Material: {fileID: 6200000, guid: a5608bd7eeb412a4dbe9941259c359c7, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         SFXManager.instance.PlayBgm(SFXManager.Sound.TITLEBGM);
+        Setup();
     }
 
     private void Update()
@@ -263,6 +264,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RunEndGameSequence()
     {
+        SFXManager.instance.PlaySound(SFXManager.Sound.GAMEOVER, false);
         yield return new WaitForSecondsRealtime(0.5f);
         gameOverlayText.text = "GAME SET";
         yield return new WaitForSecondsRealtime(1);

@@ -107,6 +107,8 @@ public class Player : MonoBehaviour
         else
             moveDir = Vector2.right;
 
+        SFXManager.instance.PlaySound(SFXManager.Sound.IMPACT, false);
+
         GameManager.instance.GetEnemy(this).TakeDamage(moveDir, meleePower);
         CameraController.instance.Shake(0.1f, 0.1f);
     }
@@ -122,6 +124,8 @@ public class Player : MonoBehaviour
         Vector2 dir = Vector2.right;
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
+
+        SFXManager.instance.PlaySound(SFXManager.Sound.GUNSHOT, false);
 
         bullet.GetComponent<Projectile>().SetupProjectile(gunPower);
         bullet.GetComponent<Rigidbody2D>().AddForce(dir * bulletSpd, ForceMode2D.Impulse);
@@ -140,6 +144,8 @@ public class Player : MonoBehaviour
         Vector2 dir = Vector2.right;
         if (currFaceDir == FaceDir.LEFT)
             dir = -dir;
+
+        SFXManager.instance.PlaySound(SFXManager.Sound.ROCKET, false);
 
         rocket.GetComponent<HormingRocket>().SetupProjectile(rocketPower);
         rocket.GetComponent<HormingRocket>().SetupHormingRocket(
@@ -200,8 +206,10 @@ public class Player : MonoBehaviour
 
     protected bool IsOnGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLen, 1 << LayerMask.NameToLayer("Ground"));
-        return hit.collider;
+        RaycastHit2D hitBottom = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastLen, 1 << LayerMask.NameToLayer("Ground"));
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, groundRaycastLen / 2, 1 << LayerMask.NameToLayer("Ground"));
+        return hitBottom.collider || hitLeft || hitRight;
     }
 
     public void ConfigurePlayer(ControlMap controlMap, Color arrowColor, string playerName)
@@ -235,6 +243,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             collision.gameObject.GetComponent<Platform>().registerDamage(1);
+            SFXManager.instance.PlayBgm(SFXManager.Sound.DEATH);
         }
     }
 
@@ -268,6 +277,7 @@ public class Player : MonoBehaviour
                 default:
                     break;
             }
+            SFXManager.instance.PlaySound(SFXManager.Sound.PICKUP, false);
             powerup.Pickuped();
         }
     }

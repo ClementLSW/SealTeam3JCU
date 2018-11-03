@@ -11,7 +11,7 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private AudioClip gunshot;
     [SerializeField] private AudioClip pickup;
     [SerializeField] private AudioClip impact;
-    public enum Sound { MAINBGM, TITLEBGM, DEATH, START, GUNSHOT, PICKUP, IMPACT};
+    public enum Sound { MAINBGM, TITLEBGM, DEATH, START, GUNSHOT, PICKUP, IMPACT, ROCKET, GAMEOVER};
 
     public static SFXManager instance;
     [SerializeField] private AudioSource bgmSource;
@@ -19,6 +19,7 @@ public class SFXManager : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
         bgmSource = gameObject.AddComponent<AudioSource>();
         sfxSource = gameObject.AddComponent<AudioSource>();
     }
@@ -68,5 +69,10 @@ public class SFXManager : MonoBehaviour
         sfxSource.loop = loop;
         sfxSource.clip = clipToUse;
         sfxSource.Play();
+    }
+
+    public void PlayStartSound()
+    {
+        PlaySound(Sound.START, false);
     }
 }
