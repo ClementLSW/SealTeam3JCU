@@ -243,7 +243,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") && collision.gameObject.GetComponent<Platform>())
         {
             collision.gameObject.GetComponent<Platform>().registerDamage(1);
-            SFXManager.instance.PlayBgm(SFXManager.Sound.DEATH);
+            SFXManager.instance.PlaySound(SFXManager.Sound.DEATH, false);
         }
     }
 
